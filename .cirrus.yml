@@ -23,27 +23,6 @@ task:
         - flutter build apk -v --debug
       binaries_artifacts:
         path: "build/app/outputs/apk/debug/app-debug.apk"
-    - name: build-apks+java-test+drive-examples
-      create_device_script:
-        echo no | avdmanager -v create avd -n test -k "system-images;android-21;default;armeabi-v7a"
-      script:
-        # Unsetting CIRRUS_CHANGE_MESSAGE and CIRRUS_COMMIT_MESSAGE as they
-        # might include non-ASCII characters which makes Gradle crash.
-        # See: https://github.com/flutter/flutter/issues/24935
-        # This is a temporary workaround until we figure how to properly configure
-        # a UTF8 locale on Cirrus (or until the Gradle bug is fixed).
-        # TODO(amirh): Set the locale to UTF8.
-        - echo "$CIRRUS_CHANGE_MESSAGE" > /tmp/cirrus_change_message.txt
-        - echo "$CIRRUS_COMMIT_MESSAGE" > /tmp/cirrus_commit_message.txt
-        - export CIRRUS_CHANGE_MESSAGE=""
-        - export CIRRUS_COMMIT_MESSAGE=""
-        - flutter packages get
-        - flutter test
-        - adb wait-for-device
-        - adb shell input keyevent 82
-        - flutter drive --target=test_driver/app.dart
-        - export CIRRUS_CHANGE_MESSAGE=`cat /tmp/cirrus_change_message.txt`
-        - export CIRRUS_COMMIT_MESSAGE=`cat /tmp/cirrus_commit_message.txt`
 
 task:
   pub_cache:
