@@ -6,11 +6,17 @@ task:
     memory: 16G
   upgrade_script:
     - git fetch origin master
+  pub_cache:
+    folder: ~/.pub-cache
   matrix:
     - name: test
       test_script: flutter test
     - name: analyze
       script: flutter analyze
+    - name: build
+      script: flutter build apk -v --debug
+      binaries_artifacts:
+        path: "build/app/outputs/apk/debug/app-debug.apk"
     - name: build-apks+java-test+drive-examples
       create_device_script:
         echo no | avdmanager -v create avd -n test -k "system-images;android-21;default;armeabi-v7a"
@@ -31,6 +37,8 @@ task:
         - export CIRRUS_COMMIT_MESSAGE=`cat /tmp/cirrus_commit_message.txt`
 
 task:
+  pub_cache:
+    folder: ~/.pub-cache
   use_compute_credits: false
   osx_instance:
     image: mojave-xcode-10.2-flutter
