@@ -10,11 +10,17 @@ task:
     folder: ~/.pub-cache
   matrix:
     - name: test
-      test_script: flutter test
+      test_script:
+        - flutter packages get
+        - flutter test
     - name: analyze
-      script: flutter analyze
+      script:
+        - flutter packages get
+        - flutter analyze
     - name: build
-      script: flutter build apk -v --debug
+      script:
+        - flutter packages get
+        - flutter build apk -v --debug
       binaries_artifacts:
         path: "build/app/outputs/apk/debug/app-debug.apk"
     - name: build-apks+java-test+drive-examples
@@ -31,6 +37,7 @@ task:
         - echo "$CIRRUS_COMMIT_MESSAGE" > /tmp/cirrus_commit_message.txt
         - export CIRRUS_CHANGE_MESSAGE=""
         - export CIRRUS_COMMIT_MESSAGE=""
+        - flutter packages get
         - flutter test
         - flutter drive --target=test_driver/app.dart
         - export CIRRUS_CHANGE_MESSAGE=`cat /tmp/cirrus_change_message.txt`
@@ -52,5 +59,6 @@ task:
       env:
         PATH: $PATH:/usr/local/bin
       build_script:
+        - flutter packages get
         - flutter test
         - flutter drive --target=test_driver/app.dart
