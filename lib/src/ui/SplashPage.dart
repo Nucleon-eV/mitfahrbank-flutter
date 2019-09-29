@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mitfahrbank"),
+      body: Center(
+        child: Text('Splash Screen'),
       ),
-      body: Container(),
     );
   }
 }
