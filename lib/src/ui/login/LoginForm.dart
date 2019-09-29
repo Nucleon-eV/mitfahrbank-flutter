@@ -39,29 +39,52 @@ class _LoginFormState extends State<LoginForm> {
           BuildContext context,
           LoginState state,
         ) {
-          return Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'username'),
-                  controller: _usernameController,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
-                  controller: _passwordController,
-                  obscureText: true,
-                ),
-                RaisedButton(
-                  onPressed:
+          return Padding(
+            padding: EdgeInsets.all(16),
+            child: Form(
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'E-Mail Adresse',
+                    ),
+                    controller: _usernameController,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Passwort',
+                    ),
+                    controller: _passwordController,
+                    obscureText: true,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  ButtonTheme(
+                    minWidth: double.infinity,
+                    child: RaisedButton(
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
+                      textColor: Colors.white,
+                      onPressed:
                       state is! LoginLoading ? _onLoginButtonPressed : null,
-                  child: Text('Login'),
-                ),
-                Container(
-                  child: state is LoginLoading
-                      ? CircularProgressIndicator()
-                      : null,
-                ),
-              ],
+                      child: Text('Einsteigen'),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Container(
+                    child: state is LoginLoading
+                        ? LinearProgressIndicator()
+                        : null,
+                  ),
+                ],
+              ),
             ),
           );
         },
