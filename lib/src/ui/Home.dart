@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mitfahrbank/src/ui/helper/BodyScaffold.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      // TODO replace "User" with real data
+      body: BodyScaffold(title: "Hallo User", child: Container(),),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0, // this will be set when a new tab is tapped
         items: [

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mitfahrbank/src/blocs/Authentication.dart';
-import 'package:mitfahrbank/src/blocs/Login.dart';
-import 'package:mitfahrbank/src/resources/UserRepository.dart';
 
+import '../../blocs/Authentication.dart';
+import '../../blocs/Login.dart';
+import '../../resources/UserRepository.dart';
+import '../helper/BodyScaffold.dart';
 import 'LoginForm.dart';
 
 class LoginPage extends StatelessWidget {
@@ -16,17 +17,17 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: BlocProvider(
-        builder: (context) {
-          return LoginBloc(
-            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-            userRepository: userRepository,
-          );
-        },
-        child: LoginForm(),
+      body: BodyScaffold(
+        title: "Login",
+        child: BlocProvider(
+          builder: (context) {
+            return LoginBloc(
+              authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+              userRepository: userRepository,
+            );
+          },
+          child: LoginForm(),
+        ),
       ),
     );
   }

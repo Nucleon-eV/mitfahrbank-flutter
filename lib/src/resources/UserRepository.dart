@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:mitfahrbank/src/models/login_model.dart';
 
-import './login_api_provider.dart';
+import 'http/login/login_api_provider.dart';
 
 class UserRepository {
   final loginApiProvider = LoginProvider();
@@ -32,5 +32,12 @@ class UserRepository {
     debugPrint("checkLogin");
     await Future.delayed(Duration(seconds: 1));
     return false;
+  }
+
+  Future<String> getToken() async {
+    /// read from keystore/keychain
+    debugPrint("getToken");
+    await Future.delayed(Duration(seconds: 1));
+    return "";
   }
 }
