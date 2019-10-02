@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mitfahrbank/src/ui/Menu.dart';
-import 'package:mitfahrbank/src/ui/Mitnehmen.dart';
 import 'package:mitfahrbank/src/ui/helper/BodyScaffold.dart';
 
-class Home extends StatelessWidget {
+import 'Home.dart';
+import 'Menu.dart';
+
+class Mitnehmen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // TODO replace "User" with real data
       body: BodyScaffold(
-        title: "Hallo User",
+        title: "Gutes tun",
         child: Container(),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // this will be set when a new tab is tapped
+        currentIndex: 1, // this will be set when a new tab is tapped
         onTap: (int tab) {
-          if (tab == 1) {
+          if (tab == 0) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Mitnehmen()),
+              MaterialPageRoute(builder: (context) => Home()),
             );
           }
           if (tab == 2) {

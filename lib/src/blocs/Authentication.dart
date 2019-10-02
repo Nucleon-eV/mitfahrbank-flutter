@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:mitfahrbank/src/models/login_model.dart';
 import 'package:mitfahrbank/src/resources/UserRepository.dart';
 
 abstract class AuthenticationState extends Equatable {
@@ -43,12 +44,12 @@ class AppStarted extends AuthenticationEvent {
 }
 
 class LoggedIn extends AuthenticationEvent {
-  final String token;
+  final LoginRESPModel resp;
 
-  LoggedIn({@required this.token}) : super([token]);
+  LoggedIn({@required this.resp}) : super([resp]);
 
   @override
-  String toString() => 'LoggedIn { token: $token }';
+  String toString() => 'LoggedIn { token: ${resp.userAccessToken} }';
 }
 
 class LoggedOut extends AuthenticationEvent {
@@ -82,7 +83,7 @@ class AuthenticationBloc
 
     if (event is LoggedIn) {
       yield AuthenticationLoading();
-      await userRepository.persistToken(event.token);
+      await userRepository.persistUser(event.resp);
       yield AuthenticationAuthenticated();
     }
 

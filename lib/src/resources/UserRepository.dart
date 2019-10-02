@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:mitfahrbank/src/models/login_model.dart';
+import 'package:mitfahrbank/src/resources/db/DatabaseProvider.dart';
+import 'package:moor_flutter/moor_flutter.dart';
 
 import 'http/login/login_api_provider.dart';
 
 class UserRepository {
   final loginApiProvider = LoginProvider();
+  final databaseProvider = DatabaseProvider();
 
   Future<LoginRESPModel> login({
     @required String email,
@@ -20,24 +23,45 @@ class UserRepository {
     return;
   }
 
-  Future<void> persistToken(String token) async {
-    /// write to keystore/keychain
-    debugPrint("loggedIn");
-    await Future.delayed(Duration(seconds: 1));
+  Future<void> persistUser(LoginRESPModel resp) async {
+    await databaseProvider.addUser(UsersCompanion(
+      id: Value(resp.user.id),
+      own: Value(true),
+      token: Value(resp.userAccessToken),
+      email: Value(resp.user.email),
+      firstName: Value(resp.user.firstName),
+      lastName: Value(resp.user.lastName),
+      firstInstall: Value(resp.user.firstInstall),
+      usesPushNotifications: Value(resp.user.usesPushNotifications),
+      usesEmailNotifications: Value(resp.user.usesEmailNotifications),
+      createdAt: Value(resp.user.createdAt),
+      updatedAt: Value(resp.user.updatedAt),
+      admin: Value(resp.user.admin),
+      verified: Value(resp.user.verified),
+      avatar: Value(resp.user.avatar),
+      distanceToStartInMeters: Value(resp.user.distanceToStartInMeters),
+      carPhoto: Value(resp.user.carPhoto),
+    ));
     return;
   }
 
   Future<bool> hasToken() async {
-    /// read from keystore/keychain
-    debugPrint("checkLogin");
-    await Future.delayed(Duration(seconds: 1));
+    User ownUserDB = await databaseProvider.ownUser;
+    if (ownUserDB != null) {
+      if (ownUserDB.token != null && ownUserDB.token != "") {
+        return true;
+      }
+    }
     return false;
   }
 
   Future<String> getToken() async {
-    /// read from keystore/keychain
-    debugPrint("getToken");
-    await Future.delayed(Duration(seconds: 1));
-    return "";
+    User ownUserDB = await databaseProvider.ownUser;
+    if (ownUserDB != null) {
+      if (ownUserDB.token != null && ownUserDB.token != "") {
+        return ownUserDB.token;
+      }
+    }
+    return null;
   }
 }
