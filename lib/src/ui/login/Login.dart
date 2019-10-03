@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
             padding: EdgeInsets.all(16),
             child: Padding(
               padding: EdgeInsets.only(top: 185),
-              child: BlocProvider(
+              child: BlocProvider<LoginBloc>(
                 builder: (context) {
                   return LoginBloc(
                     authenticationBloc:

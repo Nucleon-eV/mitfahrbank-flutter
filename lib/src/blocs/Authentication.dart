@@ -3,14 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:mitfahrbank/src/models/login_model.dart';
-import 'package:mitfahrbank/src/resources/UserRepository.dart';
 
-abstract class AuthenticationState extends Equatable {
-  final List props = const [];
+import '../models/login_model.dart';
+import '../resources/UserRepository.dart';
 
-  AuthenticationState([props]);
-}
+abstract class AuthenticationState extends Equatable {}
 
 class AuthenticationUninitialized extends AuthenticationState {
   @override
@@ -33,9 +30,7 @@ class AuthenticationLoading extends AuthenticationState {
 }
 
 abstract class AuthenticationEvent extends Equatable {
-  final List props = const [];
-
-  AuthenticationEvent([props]);
+  AuthenticationEvent([List props = const []]) : super(props);
 }
 
 class AppStarted extends AuthenticationEvent {
@@ -72,9 +67,7 @@ class AuthenticationBloc
     AuthenticationEvent event,
   ) async* {
     if (event is AppStarted) {
-      final bool hasToken = await userRepository.hasToken();
-
-      if (hasToken) {
+      if (await userRepository.hasToken()) {
         yield AuthenticationAuthenticated();
       } else {
         yield AuthenticationUnauthenticated();

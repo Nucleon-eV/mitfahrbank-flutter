@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mitfahrbank/src/resources/UserRepository.dart';
 
 import '../../../models/journey_model.dart';
 import '../../../models/user_model.dart';
+import '../../../resources/UserRepository.dart';
 
 class MitfahrbankClient {
   final String baseUrl;

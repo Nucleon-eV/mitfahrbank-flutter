@@ -1,4 +1,4 @@
-import 'package:mitfahrbank/src/models/user_model.dart';
+import 'user_model.dart';
 
 class LoginPOSTModel {
   String email;

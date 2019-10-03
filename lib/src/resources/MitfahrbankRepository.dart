@@ -1,6 +1,6 @@
-import './http/MitfahrbankAPI/MitfahrbankClient.dart';
 import '../models/journey_model.dart';
 import '../models/user_model.dart';
+import 'http/MitfahrbankAPI/MitfahrbankClient.dart';
 
 class MitfahrbankRepository {
   final MitfahrbankClient client;

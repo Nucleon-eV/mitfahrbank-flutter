@@ -1,53 +1,56 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import 'blocs/Authentication.dart';
+import 'blocs/journeys/journeys_bloc.dart';
+import 'blocs/journeys/journeys_event.dart';
+import 'resources/MitfahrbankRepository.dart';
 import 'resources/UserRepository.dart';
+import 'resources/http/MitfahrbankAPI/MitfahrbankClient.dart';
 import 'ui/Home.dart';
 import 'ui/LoadingIndicator.dart';
 import 'ui/SplashPage.dart';
 import 'ui/login/Login.dart';
 
-class MitfahrbankApp extends StatefulWidget {
+class MitfahrbankApp extends StatelessWidget {
   final UserRepository userRepository;
 
   MitfahrbankApp({Key key, @required this.userRepository}) : super(key: key);
 
-  @override
-  MitfahrbankAppState createState() => MitfahrbankAppState();
-}
-
-class MitfahrbankAppState extends State<MitfahrbankApp> {
-  @override
-  void initState() {
-    super.initState();
-    initializeDateFormatting("de_DE");
-  }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final MitfahrbankRepository mitfahrbankRepository =
+    MitfahrbankRepository(MitfahrbankClient(userRepository));
+
     return MaterialApp(
       title: 'Mitfahrbank',
       darkTheme: baseDarkTheme,
       theme: baseLightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is AuthenticationUninitialized) {
-            return SplashPage();
-          }
           if (state is AuthenticationAuthenticated) {
-            return Home();
+            return BlocProvider<JourneysBloc>(
+              builder: (context) {
+                return JourneysBloc(
+                    mitfahrbankRepository: mitfahrbankRepository)
+                  ..dispatch(LoadJourneysAsPassenger());
+              },
+              child: Home(
+                mitfahrbankRepository: mitfahrbankRepository,
+                authenticationBloc:
+                BlocProvider.of<AuthenticationBloc>(context),
+              ),
+            );
           }
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: widget.userRepository);
+            debugPrint("event: LoggedOut2");
+            return LoginPage(userRepository: userRepository);
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
           }
-          return LoadingIndicator();
+          return SplashPage();
         },
       ),
     );

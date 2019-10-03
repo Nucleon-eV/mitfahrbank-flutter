@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:mitfahrbank/src/models/journey_model.dart';
+
+import '../../models/journey_model.dart';
 
 @immutable
 abstract class JourneysState extends Equatable {

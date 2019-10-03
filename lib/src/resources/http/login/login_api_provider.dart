@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
-import 'package:mitfahrbank/src/models/login_model.dart';
+
+import '../../../models/login_model.dart';
 
 class LoginProvider {
   Client client = Client();

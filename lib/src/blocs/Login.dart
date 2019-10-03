@@ -1,14 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:mitfahrbank/src/resources/UserRepository.dart';
 
+import '../resources/UserRepository.dart';
 import 'Authentication.dart';
 
 abstract class LoginState extends Equatable {
-  final List props = const [];
-
-  LoginState([props]);
+  LoginState([List props = const []]) : super(props);
 }
 
 class LoginInitial extends LoginState {
@@ -31,9 +29,7 @@ class LoginFailure extends LoginState {
 }
 
 abstract class LoginEvent extends Equatable {
-  final List props = const [];
-
-  LoginEvent([props]);
+  LoginEvent([List props = const []]) : super(props);
 }
 
 class LoginButtonPressed extends LoginEvent {

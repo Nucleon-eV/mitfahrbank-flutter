@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
-import 'package:mitfahrbank/src/models/login_model.dart';
-import 'package:mitfahrbank/src/resources/db/DatabaseProvider.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 
+import '../models/login_model.dart';
+import '../resources/db/DatabaseProvider.dart';
 import 'http/login/login_api_provider.dart';
 
 class UserRepository {

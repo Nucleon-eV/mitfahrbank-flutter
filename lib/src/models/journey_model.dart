@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:mitfahrbank/src/models/mitfahrbank_model.dart';
-import 'package:mitfahrbank/src/models/user_model.dart';
 
 import 'general_model.dart';
+import 'mitfahrbank_model.dart';
+import 'user_model.dart';
 
 /// Journeys Response
 /// This is what we get from GET /api/journeys

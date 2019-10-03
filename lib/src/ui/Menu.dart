@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/Authentication.dart';
-import '../resources/UserRepository.dart';
+import '../blocs/journeys/journeys_bloc.dart';
+import '../blocs/journeys/journeys_event.dart';
+import '../resources/MitfahrbankRepository.dart';
 import 'Home.dart';
 import 'Mitnehmen.dart';
-import 'login/Login.dart';
 
 class Menu extends StatelessWidget {
+  final MitfahrbankRepository mitfahrbankRepository;
+  final AuthenticationBloc authenticationBloc;
+
+  const Menu({Key key,
+    @required this.mitfahrbankRepository,
+    @required this.authenticationBloc})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final AuthenticationBloc authenticationBloc =
-    BlocProvider.of<AuthenticationBloc>(context);
-
-    final UserRepository userRepository = UserRepository();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -134,12 +138,7 @@ class Menu extends StatelessWidget {
               padding: EdgeInsets.zero,
               onPressed: () {
                 authenticationBloc.dispatch(LoggedOut());
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          LoginPage(userRepository: userRepository)),
-                );
+                Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
               },
               child: Text(
                 "Ausloggen",
@@ -161,13 +160,37 @@ class Menu extends StatelessWidget {
           if (tab == 1) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Mitnehmen()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    BlocProvider<JourneysBloc>(
+                      builder: (context) {
+                        return JourneysBloc(
+                            mitfahrbankRepository: mitfahrbankRepository)
+                          ..dispatch(LoadJourneysAsDriver());
+                      },
+                      child: Mitnehmen(
+                          mitfahrbankRepository: mitfahrbankRepository,
+                          authenticationBloc: authenticationBloc),
+                    ),
+              ),
             );
           }
           if (tab == 0) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Home()),
+              MaterialPageRoute(
+                builder: (context) =>
+                    BlocProvider<JourneysBloc>(
+                      builder: (context) {
+                        return JourneysBloc(
+                            mitfahrbankRepository: mitfahrbankRepository)
+                          ..dispatch(LoadJourneysAsPassenger());
+                      },
+                      child: Home(
+                          mitfahrbankRepository: mitfahrbankRepository,
+                          authenticationBloc: authenticationBloc),
+                    ),
+              ),
             );
           }
         },

@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mitfahrbank/src/app.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
+import 'src/app.dart';
 import 'src/blocs/Authentication.dart';
 import 'src/resources/UserRepository.dart';
 
@@ -27,7 +29,10 @@ class SimpleBlocDelegate extends BlocDelegate {
 }
 
 void main() {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  initializeDateFormatting("de_DE");
+  if (!kReleaseMode) {
+    BlocSupervisor.delegate = SimpleBlocDelegate();
+  }
   final userRepository = UserRepository();
   runApp(
     BlocProvider<AuthenticationBloc>(
