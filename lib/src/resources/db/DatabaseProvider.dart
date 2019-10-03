@@ -4,9 +4,15 @@ part 'DatabaseProvider.g.dart';
 
 @UseMoor(tables: [Users])
 class DatabaseProvider extends _$DatabaseProvider {
+  static final DatabaseProvider _singleton = DatabaseProvider._internal();
+
   // we tell the database where to store the data with this constructor
-  DatabaseProvider()
+  DatabaseProvider._internal()
       : super(FlutterQueryExecutor.inDatabaseFolder(path: 'db.sqlite'));
+
+  factory DatabaseProvider() {
+    return _singleton;
+  }
 
   // you should bump this number whenever you change or add a table definition. Migrations
   // are covered later in this readme.
@@ -18,8 +24,8 @@ class DatabaseProvider extends _$DatabaseProvider {
   }
 
   Future<User> get ownUser => (select(users)
-        ..where((t) => t.own.equals(true))
-        ..limit(1))
+    ..where((t) => t.own.equals(true))
+    ..limit(1))
       .getSingle();
 }
 
@@ -31,8 +37,8 @@ class DatabaseProvider extends _$DatabaseProvider {
   bool _firstInstall;
   bool _usesPushNotifications;
   bool _usesEmailNotifications;
-  int _createdAt;
-  int _updatedAt;
+  String _createdAt;
+  String _updatedAt;
   bool _admin;
   bool _verified;
   String _avatar;
@@ -58,9 +64,9 @@ class Users extends Table {
 
   BoolColumn get usesEmailNotifications => boolean()();
 
-  IntColumn get createdAt => integer()();
+  TextColumn get createdAt => text()();
 
-  IntColumn get updatedAt => integer()();
+  TextColumn get updatedAt => text()();
 
   BoolColumn get admin => boolean()();
 

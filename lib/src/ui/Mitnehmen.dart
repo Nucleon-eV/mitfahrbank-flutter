@@ -11,6 +11,7 @@ class Mitnehmen extends StatelessWidget {
       // TODO replace "User" with real data
       body: BodyScaffold(
         title: "Gutes tun",
+        subtitle: DropdownButton(items: null, onChanged: null),
         child: Container(),
       ),
       bottomNavigationBar: BottomNavigationBar(
