@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mitfahrbank/src/ui/Home.dart';
-import 'package:mitfahrbank/src/ui/helper/BodyScaffold.dart';
 
+import 'Home.dart';
 import 'Mitnehmen.dart';
+import 'helper/BodyScaffold.dart';
 
 class Menu extends StatelessWidget {
   @override

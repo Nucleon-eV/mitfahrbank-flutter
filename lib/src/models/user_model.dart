@@ -8,8 +8,8 @@ class User {
   bool _firstInstall;
   bool _usesPushNotifications;
   bool _usesEmailNotifications;
-  String _createdAt;
-  String _updatedAt;
+  int _createdAt;
+  int _updatedAt;
   bool _admin;
   bool _verified;
   String _avatar;
@@ -34,7 +34,9 @@ class User {
     _avatar = parsedJson['avatar'];
     _distanceToStartInMeters = parsedJson['distance_to_start_in_meters'];
     _distanceToStartInMeters = parsedJson['car_photo'];
-    _pivot = Pivot.fromJson(parsedJson["pivot"]);
+    _pivot = parsedJson["links"] != null
+        ? Pivot.fromJson(parsedJson["pivot"])
+        : null;
   }
 
   int get id => _id;
@@ -51,9 +53,9 @@ class User {
 
   bool get usesEmailNotifications => _usesEmailNotifications;
 
-  String get createdAt => _createdAt;
+  int get createdAt => _createdAt;
 
-  String get updatedAt => _updatedAt;
+  int get updatedAt => _updatedAt;
 
   bool get admin => _admin;
 

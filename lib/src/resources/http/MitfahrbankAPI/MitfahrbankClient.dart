@@ -1,26 +1,30 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mitfahrbank/src/resources/UserRepository.dart';
 
 import '../../../models/journey_model.dart';
 import '../../../models/user_model.dart';
 
 class MitfahrbankClient {
   final String baseUrl;
-  final String token;
+  final UserRepository userRepository;
   final http.Client httpClient;
 
-  MitfahrbankClient(
-    this.token, {
+  MitfahrbankClient(this.userRepository, {
     http.Client httpClient,
     this.baseUrl = "https://mitfahrbank.digital/api",
   }) : this.httpClient = httpClient ?? http.Client();
 
-  Map<String, String> get authHeaders =>
-      {'Map<String, String>': 'Bearer ${this.token}'};
+  Future<Map<String, String>> authHeaders() async {
+    String token = await this.userRepository.getToken();
+    return {'Authorization': 'Bearer $token'};
+  }
+
 
   Future<http.Response> _get(String path) async =>
-      await httpClient.get(Uri.parse("$baseUrl$path"), headers: authHeaders);
+      await httpClient.get(
+          Uri.parse("$baseUrl$path"), headers: await authHeaders());
 
   Future<User> getUser() async {
     final response = await _get("/user");
@@ -34,18 +38,51 @@ class MitfahrbankClient {
     }
   }
 
-  Future<Journey> getJourney({int id}) async {
-    http.Response response;
-    if (id != null) {
-      response = await _get("/starts/$id/journeys");
-    } else {
-      response = await _get("/journeys");
-    }
+  Future<Journey> getJourney(int id) async {
+    http.Response response = await _get("/starts/$id/journeys");
 
     final results = json.decode(response.body);
 
     if (response.statusCode == 200) {
       return Journey.fromJson(results);
+    } else {
+      throw Exception("Unable to get Journey");
+    }
+  }
+
+  Future<JourneysResp> getJourneys() async {
+    http.Response response = await _get("/journeys");
+
+    final results = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return JourneysResp.fromJson(results);
+    } else {
+      throw Exception("Unable to get Journey");
+    }
+  }
+
+  // TODO add pagination
+  Future<JourneysDriverResp> getJourneysAsDriver() async {
+    http.Response response = await _get("/user/journeys/driver");
+
+    final results = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return JourneysDriverResp.fromJson(results);
+    } else {
+      throw Exception("Unable to get Journey");
+    }
+  }
+
+  // TODO add pagination
+  Future<JourneysDriverResp> getJourneysAsPassenger() async {
+    http.Response response = await _get("/user/journeys");
+
+    final results = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return JourneysDriverResp.fromJson(results);
     } else {
       throw Exception("Unable to get Journey");
     }

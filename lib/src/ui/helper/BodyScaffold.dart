@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class BodyScaffold extends StatelessWidget {
   final Widget child;
   final String title;
-  final Widget subtitle;
 
   const BodyScaffold({
     Key key,
     @required this.title,
     @required this.child,
-    this.subtitle,
   }) : super(key: key);
 
   @override
@@ -21,19 +19,14 @@ class BodyScaffold extends StatelessWidget {
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
-            title: Column(
-              children: <Widget>[
-                Text(
-                  this.title,
-                  style: TextStyle(
-                      color: Theme
-                          .of(context)
-                          .primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30),
-                ),
-                this.subtitle,
-              ],
+            title: Text(
+              this.title,
+              style: TextStyle(
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30),
             ),
             background: Image.asset(
               "assets/map-01.png",

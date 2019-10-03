@@ -17,8 +17,8 @@ class User extends DataClass implements Insertable<User> {
   final bool firstInstall;
   final bool usesPushNotifications;
   final bool usesEmailNotifications;
-  final String createdAt;
-  final String updatedAt;
+  final int createdAt;
+  final int updatedAt;
   final bool admin;
   final bool verified;
   final String avatar;
@@ -64,10 +64,10 @@ class User extends DataClass implements Insertable<User> {
           data['${effectivePrefix}uses_push_notifications']),
       usesEmailNotifications: boolType.mapFromDatabaseResponse(
           data['${effectivePrefix}uses_email_notifications']),
-      createdAt: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
-      updatedAt: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}updated_at']),
+      createdAt:
+      intType.mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
+      updatedAt:
+      intType.mapFromDatabaseResponse(data['${effectivePrefix}updated_at']),
       admin: boolType.mapFromDatabaseResponse(data['${effectivePrefix}admin']),
       verified:
           boolType.mapFromDatabaseResponse(data['${effectivePrefix}verified']),
@@ -93,8 +93,8 @@ class User extends DataClass implements Insertable<User> {
           serializer.fromJson<bool>(json['usesPushNotifications']),
       usesEmailNotifications:
           serializer.fromJson<bool>(json['usesEmailNotifications']),
-      createdAt: serializer.fromJson<String>(json['createdAt']),
-      updatedAt: serializer.fromJson<String>(json['updatedAt']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
       admin: serializer.fromJson<bool>(json['admin']),
       verified: serializer.fromJson<bool>(json['verified']),
       avatar: serializer.fromJson<String>(json['avatar']),
@@ -116,8 +116,8 @@ class User extends DataClass implements Insertable<User> {
       'firstInstall': serializer.toJson<bool>(firstInstall),
       'usesPushNotifications': serializer.toJson<bool>(usesPushNotifications),
       'usesEmailNotifications': serializer.toJson<bool>(usesEmailNotifications),
-      'createdAt': serializer.toJson<String>(createdAt),
-      'updatedAt': serializer.toJson<String>(updatedAt),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
       'admin': serializer.toJson<bool>(admin),
       'verified': serializer.toJson<bool>(verified),
       'avatar': serializer.toJson<String>(avatar),
@@ -183,8 +183,8 @@ class User extends DataClass implements Insertable<User> {
           bool firstInstall,
           bool usesPushNotifications,
           bool usesEmailNotifications,
-            String createdAt,
-            String updatedAt,
+            int createdAt,
+            int updatedAt,
           bool admin,
           bool verified,
           String avatar,
@@ -300,8 +300,8 @@ class UsersCompanion extends UpdateCompanion<User> {
   final Value<bool> firstInstall;
   final Value<bool> usesPushNotifications;
   final Value<bool> usesEmailNotifications;
-  final Value<String> createdAt;
-  final Value<String> updatedAt;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
   final Value<bool> admin;
   final Value<bool> verified;
   final Value<String> avatar;
@@ -335,8 +335,8 @@ class UsersCompanion extends UpdateCompanion<User> {
       Value<bool> firstInstall,
       Value<bool> usesPushNotifications,
       Value<bool> usesEmailNotifications,
-        Value<String> createdAt,
-        Value<String> updatedAt,
+        Value<int> createdAt,
+        Value<int> updatedAt,
       Value<bool> admin,
       Value<bool> verified,
       Value<String> avatar,
@@ -485,12 +485,12 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }
 
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  GeneratedTextColumn _createdAt;
+  GeneratedIntColumn _createdAt;
   @override
-  GeneratedTextColumn get createdAt => _createdAt ??= _constructCreatedAt();
+  GeneratedIntColumn get createdAt => _createdAt ??= _constructCreatedAt();
 
-  GeneratedTextColumn _constructCreatedAt() {
-    return GeneratedTextColumn(
+  GeneratedIntColumn _constructCreatedAt() {
+    return GeneratedIntColumn(
       'created_at',
       $tableName,
       false,
@@ -498,12 +498,12 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }
 
   final VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
-  GeneratedTextColumn _updatedAt;
+  GeneratedIntColumn _updatedAt;
   @override
-  GeneratedTextColumn get updatedAt => _updatedAt ??= _constructUpdatedAt();
+  GeneratedIntColumn get updatedAt => _updatedAt ??= _constructUpdatedAt();
 
-  GeneratedTextColumn _constructUpdatedAt() {
-    return GeneratedTextColumn(
+  GeneratedIntColumn _constructUpdatedAt() {
+    return GeneratedIntColumn(
       'updated_at',
       $tableName,
       false,
@@ -747,10 +747,10 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
           Variable<bool, BoolType>(d.usesEmailNotifications.value);
     }
     if (d.createdAt.present) {
-      map['created_at'] = Variable<String, StringType>(d.createdAt.value);
+      map['created_at'] = Variable<int, IntType>(d.createdAt.value);
     }
     if (d.updatedAt.present) {
-      map['updated_at'] = Variable<String, StringType>(d.updatedAt.value);
+      map['updated_at'] = Variable<int, IntType>(d.updatedAt.value);
     }
     if (d.admin.present) {
       map['admin'] = Variable<bool, BoolType>(d.admin.value);

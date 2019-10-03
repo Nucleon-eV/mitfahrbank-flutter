@@ -13,9 +13,27 @@ class MitfahrbankRepository {
     return result;
   }
 
-  Future<Journey> getJourney({int id}) async {
+  Future<Journey> getJourney(int id) async {
     // TODO Use cache or something
-    final result = await client.getJourney(id: id);
+    final result = await client.getJourney(id);
     return result;
+  }
+
+  Future<List<Journey>> getJourneys() async {
+    // TODO Use cache or something
+    final result = await client.getJourneys();
+    return result.data;
+  }
+
+  Future<List<Journey>> getJourneysAsDriver() async {
+    // TODO Use cache or something
+    final result = await client.getJourneysAsDriver();
+    return result.data;
+  }
+
+  Future<List<Journey>> getJourneysAsPassenger() async {
+    // TODO Use cache or something
+    final result = await client.getJourneysAsPassenger();
+    return result.data;
   }
 }

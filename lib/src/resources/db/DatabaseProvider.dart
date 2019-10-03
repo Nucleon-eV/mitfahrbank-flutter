@@ -64,9 +64,9 @@ class Users extends Table {
 
   BoolColumn get usesEmailNotifications => boolean()();
 
-  TextColumn get createdAt => text()();
+  IntColumn get createdAt => integer()();
 
-  TextColumn get updatedAt => text()();
+  IntColumn get updatedAt => integer()();
 
   BoolColumn get admin => boolean()();
 
