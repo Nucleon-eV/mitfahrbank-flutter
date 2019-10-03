@@ -16,7 +16,7 @@ class MitfahrbankRepository {
   Future<Journey> getJourney(int id) async {
     // TODO Use cache or something
     final result = await client.getJourney(id);
-    return result;
+    return result.data;
   }
 
   Future<List<Journey>> getJourneys() async {

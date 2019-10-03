@@ -17,3 +17,12 @@ class LoadJourneysAsPassenger extends JourneysEvent {
   @override
   String toString() => 'LoadJourneysAsPassenger';
 }
+
+class LoadJourney extends JourneysEvent {
+  final int id;
+
+  LoadJourney(this.id);
+
+  @override
+  String toString() => 'LoadJourneysAsPassenger';
+}

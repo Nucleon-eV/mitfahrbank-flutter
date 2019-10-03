@@ -19,6 +19,8 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
       yield* _mapLoadJourneysAsDriverToState();
     } else if (event is LoadJourneysAsPassenger) {
       yield* _mapLoadJourneysAsPassengerToState();
+    } else if (event is LoadJourney) {
+      yield* _mapLoadJourneyToState(event.id);
     }
   }
 
@@ -37,6 +39,16 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
       final journeys =
           await this.mitfahrbankRepository.getJourneysAsPassenger();
       yield JourneysAsPassengerLoaded(journeys);
+    } catch (e) {
+      debugPrint(e);
+      yield JourneysNotLoaded();
+    }
+  }
+
+  Stream<JourneysState> _mapLoadJourneyToState(int id) async* {
+    try {
+      final journey = await this.mitfahrbankRepository.getJourney(id);
+      yield JourneyLoaded(journey: journey);
     } catch (e) {
       debugPrint(e);
       yield JourneysNotLoaded();

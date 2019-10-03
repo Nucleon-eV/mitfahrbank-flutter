@@ -38,13 +38,13 @@ class MitfahrbankClient {
     }
   }
 
-  Future<Journey> getJourney(int id) async {
-    http.Response response = await _get("/starts/$id/journeys");
+  Future<JourneyResp> getJourney(int id) async {
+    http.Response response = await _get("/user/journeys/$id");
 
     final results = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      return Journey.fromJson(results);
+      return JourneyResp.fromJson(results);
     } else {
       throw Exception("Unable to get Journey");
     }

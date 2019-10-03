@@ -24,6 +24,18 @@ class JourneysResp {
   List<Journey> get data => _data;
 }
 
+/// Journey (Detail) Response
+/// This is what we get from GET /api/journeys
+class JourneyResp {
+  Journey _data;
+
+  JourneyResp.fromJson(Map<String, dynamic> parsedJson) {
+    _data = Journey.fromJson(parsedJson["data"]);
+  }
+
+  Journey get data => _data;
+}
+
 /// Journeys as a Driver Response
 /// This is what we get from GET /api/user/journeys/driver
 class JourneysDriverResp {
@@ -96,7 +108,7 @@ class Journey extends Equatable {
 
   static Journey fromJson(Map<String, dynamic> parsedJson) {
     List<User> passengersTemp;
-    if (parsedJson["data"] != null) {
+    if (parsedJson["passengers"] != null) {
       passengersTemp = [];
       for (int i = 0; i < parsedJson['passengers'].length; i++) {
         User user = User.fromJson(parsedJson['passengers'][i]);
@@ -126,7 +138,7 @@ class Journey extends Equatable {
       parsedJson["start"] != null
           ? Mitfahrbank.fromJson(parsedJson["start"])
           : null,
-      User.fromJson(parsedJson["driver"]),
+      parsedJson["driver"] != null ? User.fromJson(parsedJson["driver"]) : null,
     );
   }
 

@@ -32,6 +32,15 @@ class JourneysAsPassengerLoaded extends JourneysState {
   String toString() => 'JourneysAsPassengerLoaded { journeys: $journeys }';
 }
 
+class JourneyLoaded extends JourneysState {
+  final Journey journey;
+
+  JourneyLoaded({this.journey}) : super([journey]);
+
+  @override
+  String toString() => 'JourneyLoaded { journey: $journey }';
+}
+
 class JourneysNotLoaded extends JourneysState {
   @override
   String toString() => 'JourneysNotLoaded';

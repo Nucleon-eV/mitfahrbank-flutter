@@ -9,6 +9,7 @@ import '../resources/MitfahrbankRepository.dart';
 import '../resources/UserRepository.dart';
 import '../resources/http/MitfahrbankAPI/MitfahrbankClient.dart';
 import 'Home.dart';
+import 'JourneyDetails.dart';
 import 'LoadingIndicator.dart';
 import 'Menu.dart';
 import 'helper/BodyScaffold.dart';
@@ -55,24 +56,37 @@ class Mitnehmen extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
                               margin: EdgeInsets.all(0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(Icons.directions_car),
-                                    title: Text(
-                                        "${journeys[index].start
-                                            .name} -> ${journeys[index]
-                                            .destination.name}"),
-                                    subtitle: Text(
-                                      DateFormat.yMMMMd('de_DE').format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                          journeys[index].endedAt * 1000,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          JourneyDetails(
+                                            id: journeys[index].id,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ListTile(
+                                      leading: Icon(Icons.directions_car),
+                                      title: Text(
+                                          "${journeys[index].start
+                                              .name} -> ${journeys[index]
+                                              .destination.name}"),
+                                      subtitle: Text(
+                                        DateFormat.yMMMMd('de_DE').format(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                            journeys[index].endedAt * 1000,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
