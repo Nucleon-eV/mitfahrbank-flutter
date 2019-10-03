@@ -6,6 +6,8 @@ import 'package:mitfahrbank/src/models/login_model.dart';
 class LoginProvider {
   Client client = Client();
 
+
+  // TODO handle error response!
   Future<LoginRESPModel> doLogin(String email, String password) async {
     print("entered");
     final LoginPOSTModel loginBody = LoginPOSTModel(email, password);

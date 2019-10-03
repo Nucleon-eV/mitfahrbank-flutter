@@ -65,9 +65,9 @@ class User extends DataClass implements Insertable<User> {
       usesEmailNotifications: boolType.mapFromDatabaseResponse(
           data['${effectivePrefix}uses_email_notifications']),
       createdAt:
-      intType.mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
       updatedAt:
-      intType.mapFromDatabaseResponse(data['${effectivePrefix}updated_at']),
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}updated_at']),
       admin: boolType.mapFromDatabaseResponse(data['${effectivePrefix}admin']),
       verified:
           boolType.mapFromDatabaseResponse(data['${effectivePrefix}verified']),
@@ -183,8 +183,8 @@ class User extends DataClass implements Insertable<User> {
           bool firstInstall,
           bool usesPushNotifications,
           bool usesEmailNotifications,
-            int createdAt,
-            int updatedAt,
+          int createdAt,
+          int updatedAt,
           bool admin,
           bool verified,
           String avatar,
@@ -335,8 +335,8 @@ class UsersCompanion extends UpdateCompanion<User> {
       Value<bool> firstInstall,
       Value<bool> usesPushNotifications,
       Value<bool> usesEmailNotifications,
-        Value<int> createdAt,
-        Value<int> updatedAt,
+      Value<int> createdAt,
+      Value<int> updatedAt,
       Value<bool> admin,
       Value<bool> verified,
       Value<String> avatar,
@@ -488,7 +488,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   GeneratedIntColumn _createdAt;
   @override
   GeneratedIntColumn get createdAt => _createdAt ??= _constructCreatedAt();
-
   GeneratedIntColumn _constructCreatedAt() {
     return GeneratedIntColumn(
       'created_at',
@@ -501,7 +500,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   GeneratedIntColumn _updatedAt;
   @override
   GeneratedIntColumn get updatedAt => _updatedAt ??= _constructUpdatedAt();
-
   GeneratedIntColumn _constructUpdatedAt() {
     return GeneratedIntColumn(
       'updated_at',

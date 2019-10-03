@@ -27,6 +27,12 @@ class DatabaseProvider extends _$DatabaseProvider {
     ..where((t) => t.own.equals(true))
     ..limit(1))
       .getSingle();
+
+
+  Future logout() {
+    return (delete(users)
+      ..where((t) => t.own.equals(true))).go();
+  }
 }
 
 /*

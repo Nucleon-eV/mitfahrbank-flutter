@@ -17,9 +17,7 @@ class UserRepository {
       loginApiProvider.doLogin(email, password);
 
   Future<void> deleteToken() async {
-    /// delete from keystore/keychain
-    debugPrint("logout");
-    await Future.delayed(Duration(seconds: 1));
+    await databaseProvider.logout();
     return;
   }
 

@@ -30,7 +30,7 @@ class MitfahrbankAppState extends State<MitfahrbankApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mitfahrbank',
       darkTheme: baseDarkTheme,
       theme: baseLightTheme,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
