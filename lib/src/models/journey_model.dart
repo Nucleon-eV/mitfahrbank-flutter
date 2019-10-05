@@ -7,64 +7,61 @@ import 'user_model.dart';
 
 /// Journeys Response
 /// This is what we get from GET /api/journeys
+@immutable
 class JourneysResp {
-  List<Journey> _data;
+  final List<Journey> data;
 
-  JourneysResp.fromJson(Map<String, dynamic> parsedJson) {
+  JourneysResp(this.data);
+
+  static JourneysResp fromJson(Map<String, dynamic> parsedJson) {
+    List<Journey> temp = [];
     if (parsedJson["data"] != null) {
-      List<Journey> temp = [];
       for (int i = 0; i < parsedJson['data'].length; i++) {
         Journey journey = Journey.fromJson(parsedJson['data'][i]);
         temp.add(journey);
       }
-      _data = temp;
     }
+    return JourneysResp(temp);
   }
-
-  List<Journey> get data => _data;
 }
 
 /// Journey (Detail) Response
 /// This is what we get from GET /api/journeys
+@immutable
 class JourneyResp {
-  Journey _data;
+  final Journey data;
 
-  JourneyResp.fromJson(Map<String, dynamic> parsedJson) {
-    _data = Journey.fromJson(parsedJson["data"]);
+  JourneyResp(this.data);
+
+  static JourneyResp fromJson(Map<String, dynamic> parsedJson) {
+    return JourneyResp(Journey.fromJson(parsedJson["data"]));
   }
-
-  Journey get data => _data;
 }
 
 /// Journeys as a Driver Response
 /// This is what we get from GET /api/user/journeys/driver
+@immutable
 class JourneysDriverResp {
-  List<Journey> _data;
-  Links _links;
-  Meta _meta;
+  final List<Journey> data;
+  final Links links;
+  final Meta meta;
 
-  JourneysDriverResp.fromJson(Map<String, dynamic> parsedJson) {
+  JourneysDriverResp(this.data, this.links, this.meta);
+
+  static JourneysDriverResp fromJson(Map<String, dynamic> parsedJson) {
+    List<Journey> temp = [];
     if (parsedJson["data"] != null) {
-      List<Journey> temp = [];
       for (int i = 0; i < parsedJson['data'].length; i++) {
         Journey journey = Journey.fromJson(parsedJson['data'][i]);
         temp.add(journey);
       }
-      _data = temp;
     }
-
-    _links = parsedJson["links"] != null
-        ? Links.fromJson(parsedJson["links"])
-        : null;
-    _meta =
-    parsedJson["meta"] != null ? Meta.fromJson(parsedJson["meta"]) : null;
+    return JourneysDriverResp(
+      temp,
+      parsedJson["links"] != null ? Links.fromJson(parsedJson["links"]) : null,
+      parsedJson["meta"] != null ? Meta.fromJson(parsedJson["meta"]) : null,
+    );
   }
-
-  List<Journey> get data => _data;
-
-  Links get links => _links;
-
-  Meta get meta => _meta;
 }
 
 /// This is one single Journey

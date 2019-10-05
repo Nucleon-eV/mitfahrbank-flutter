@@ -1,14 +1,19 @@
+import 'package:flutter/material.dart';
+
 import 'user_model.dart';
 
+@immutable
 class LoginPOSTModel {
-  String email;
-  String password;
+  final String email;
+  final String password;
 
   LoginPOSTModel(this.email, this.password);
 
-  LoginPOSTModel.fromJson(Map<String, dynamic> parsedJson) {
-    email = parsedJson['email'];
-    password = parsedJson['password'];
+  static LoginPOSTModel fromJson(Map<String, dynamic> parsedJson) {
+    return LoginPOSTModel(
+      parsedJson['email'],
+      parsedJson['password'],
+    );
   }
 
   Map<String, String> toJson() {
@@ -19,16 +24,17 @@ class LoginPOSTModel {
   }
 }
 
+@immutable
 class LoginRESPModel {
-  String _userAccessToken;
-  User _user;
+  final String userAccessToken;
+  final User user;
 
-  LoginRESPModel.fromJson(Map<String, dynamic> parsedJson) {
-    _userAccessToken = parsedJson['userAccessToken'];
-    _user = User.fromJson(parsedJson['user']);
+  LoginRESPModel(this.userAccessToken, this.user);
+
+  static LoginRESPModel fromJson(Map<String, dynamic> parsedJson) {
+    return LoginRESPModel(
+      parsedJson['userAccessToken'],
+      User.fromJson(parsedJson['user']),
+    );
   }
-
-  String get userAccessToken => _userAccessToken;
-
-  User get user => _user;
 }

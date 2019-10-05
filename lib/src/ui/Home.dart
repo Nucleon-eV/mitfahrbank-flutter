@@ -12,6 +12,8 @@ import 'LoadingIndicator.dart';
 import 'Menu.dart';
 import 'Mitnehmen.dart';
 
+
+// TODO add pull to refresh https://felangel.github.io/bloc/#/flutterweathertutorial?id=pull-to-refresh
 class Home extends StatelessWidget {
   final MitfahrbankRepository mitfahrbankRepository;
   final AuthenticationBloc authenticationBloc;
