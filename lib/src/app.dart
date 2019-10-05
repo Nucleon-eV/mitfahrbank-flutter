@@ -38,8 +38,6 @@ class MitfahrbankApp extends StatelessWidget {
               },
               child: Home(
                 mitfahrbankRepository: mitfahrbankRepository,
-                authenticationBloc:
-                BlocProvider.of<AuthenticationBloc>(context),
               ),
             );
           }

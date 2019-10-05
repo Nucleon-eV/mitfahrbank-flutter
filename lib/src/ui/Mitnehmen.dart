@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../blocs/Authentication.dart';
 import '../blocs/journeys/journeys_bloc.dart';
 import '../blocs/journeys/journeys_event.dart';
 import '../blocs/journeys/journeys_state.dart';
@@ -15,11 +14,8 @@ import 'Menu.dart';
 // TODO add pull to refresh https://felangel.github.io/bloc/#/flutterweathertutorial?id=pull-to-refresh
 class Mitnehmen extends StatelessWidget {
   final MitfahrbankRepository mitfahrbankRepository;
-  final AuthenticationBloc authenticationBloc;
 
-  const Mitnehmen({Key key,
-    @required this.mitfahrbankRepository,
-    @required this.authenticationBloc})
+  const Mitnehmen({Key key, @required this.mitfahrbankRepository})
       : super(key: key);
 
   @override
@@ -173,9 +169,7 @@ class Mitnehmen extends StatelessWidget {
                             mitfahrbankRepository: mitfahrbankRepository)
                           ..dispatch(LoadJourneysAsPassenger());
                       },
-                      child: Home(
-                          mitfahrbankRepository: mitfahrbankRepository,
-                          authenticationBloc: authenticationBloc),
+                      child: Home(mitfahrbankRepository: mitfahrbankRepository),
                     ),
               ),
             );
@@ -185,9 +179,7 @@ class Mitnehmen extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      Menu(
-                          mitfahrbankRepository: mitfahrbankRepository,
-                          authenticationBloc: authenticationBloc)),
+                      Menu(mitfahrbankRepository: mitfahrbankRepository)),
             );
           }
         },

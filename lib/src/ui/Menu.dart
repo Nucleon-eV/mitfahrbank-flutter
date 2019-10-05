@@ -10,12 +10,8 @@ import 'Mitnehmen.dart';
 
 class Menu extends StatelessWidget {
   final MitfahrbankRepository mitfahrbankRepository;
-  final AuthenticationBloc authenticationBloc;
 
-  const Menu({Key key,
-    @required this.mitfahrbankRepository,
-    @required this.authenticationBloc})
-      : super(key: key);
+  const Menu({Key key, @required this.mitfahrbankRepository}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +133,8 @@ class Menu extends StatelessWidget {
             FlatButton(
               padding: EdgeInsets.zero,
               onPressed: () {
-                authenticationBloc.dispatch(LoggedOut());
+                BlocProvider.of<AuthenticationBloc>(context)
+                    .dispatch(LoggedOut());
                 Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
               },
               child: Text(
@@ -168,9 +165,8 @@ class Menu extends StatelessWidget {
                             mitfahrbankRepository: mitfahrbankRepository)
                           ..dispatch(LoadJourneysAsDriver());
                       },
-                      child: Mitnehmen(
-                          mitfahrbankRepository: mitfahrbankRepository,
-                          authenticationBloc: authenticationBloc),
+                      child:
+                      Mitnehmen(mitfahrbankRepository: mitfahrbankRepository),
                     ),
               ),
             );
@@ -186,9 +182,7 @@ class Menu extends StatelessWidget {
                             mitfahrbankRepository: mitfahrbankRepository)
                           ..dispatch(LoadJourneysAsPassenger());
                       },
-                      child: Home(
-                          mitfahrbankRepository: mitfahrbankRepository,
-                          authenticationBloc: authenticationBloc),
+                      child: Home(mitfahrbankRepository: mitfahrbankRepository),
                     ),
               ),
             );
