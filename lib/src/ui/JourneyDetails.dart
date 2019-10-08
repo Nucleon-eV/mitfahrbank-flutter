@@ -15,7 +15,6 @@ class JourneyDetails extends StatelessWidget {
         if (state is JourneysLoading) {
           return Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.white,
                 title: Text(
                   "",
                   style: TextStyle(

@@ -104,9 +104,8 @@ class Journey extends Equatable {
       this.driver,);
 
   static Journey fromJson(Map<String, dynamic> parsedJson) {
-    List<User> passengersTemp;
+    List<User> passengersTemp = [];
     if (parsedJson["passengers"] != null) {
-      passengersTemp = [];
       for (int i = 0; i < parsedJson['passengers'].length; i++) {
         User user = User.fromJson(parsedJson['passengers'][i]);
         passengersTemp.add(user);
@@ -140,11 +139,92 @@ class Journey extends Equatable {
   }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props =>
+      [
+        id,
+        comment,
+        matchedAt,
+        confirmed,
+        endedAt,
+        initiatorID,
+        destinationID,
+        startID,
+        driverID,
+        createdAt,
+        updatedAt,
+        driverMessage,
+        initiator,
+        passengers,
+        destination,
+        start,
+        driver,
+      ];
 
   @override
   String toString() {
     return 'Journey { id: $id, comment: $comment, matched_at: $matchedAt, confirmed: $confirmed, ended_at: $endedAt, initiator_id: $initiatorID, destination_id: $destinationID, start_id: $startID, driver_id: $driverID, created_at: $createdAt, updated_at: $updatedAt, driver_message: $driverMessage, initiator: $initiator, passengers: ${passengers
         .toString()}, destination: $destination, start: $start, driver: $driver }';
+  }
+}
+
+@immutable
+class MitfahrbaenkeResp extends Equatable {
+  final List<Mitfahrbank> mitfahrbaenke;
+
+  MitfahrbaenkeResp(this.mitfahrbaenke);
+
+  static MitfahrbaenkeResp fromJson(List<dynamic> parsedJson) {
+    List<Mitfahrbank> mitfahrbaenkeTemp = [];
+    if (parsedJson.length > 0) {
+      for (int i = 0; i < parsedJson.length; i++) {
+        Mitfahrbank mitfahrbank = Mitfahrbank.fromJson(parsedJson[i]);
+        mitfahrbaenkeTemp.add(mitfahrbank);
+      }
+    }
+
+    return MitfahrbaenkeResp(mitfahrbaenkeTemp);
+  }
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'MitfahrbaenkeResp {  }';
+  }
+}
+
+@immutable
+class DestinationMitfahrbaenkeResp {
+  final List<Mitfahrbank> data;
+
+  DestinationMitfahrbaenkeResp(this.data);
+
+  static DestinationMitfahrbaenkeResp fromJson(
+      Map<String, dynamic> parsedJson) {
+    List<Mitfahrbank> temp = [];
+    if (parsedJson["data"] != null) {
+      for (int i = 0; i < parsedJson['data'].length; i++) {
+        Mitfahrbank mitfahrbank = Mitfahrbank.fromJson(parsedJson['data'][i]);
+        temp.add(mitfahrbank);
+      }
+    }
+    return DestinationMitfahrbaenkeResp(temp);
+  }
+}
+
+class JourneyStartPOST {
+  final String destinationID;
+  final int startID;
+  final String comment;
+
+  JourneyStartPOST(this.destinationID, this.startID, this.comment);
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = Map();
+    json['comment'] = comment;
+    json['destination_id'] = destinationID;
+    json['start_id'] = startID;
+    return json;
   }
 }

@@ -42,7 +42,6 @@ class MitfahrbankApp extends StatelessWidget {
             );
           }
           if (state is AuthenticationUnauthenticated) {
-            debugPrint("event: LoggedOut2");
             return LoginPage(userRepository: userRepository);
           }
           if (state is AuthenticationLoading) {
@@ -56,6 +55,10 @@ class MitfahrbankApp extends StatelessWidget {
 
   ThemeData get baseLightTheme => ThemeData(
     brightness: Brightness.light,
+    appBarTheme: AppBarTheme(
+      color: Colors.white,
+      brightness: Brightness.light,
+    ),
     primarySwatch: MaterialColor(
       4289317175,
       {
@@ -76,6 +79,10 @@ class MitfahrbankApp extends StatelessWidget {
 
   ThemeData get baseDarkTheme => ThemeData(
     brightness: Brightness.dark,
+    appBarTheme: AppBarTheme(
+      color: Colors.black,
+      brightness: Brightness.dark,
+    ),
     primarySwatch: MaterialColor(
       0xffA9C937,
       {

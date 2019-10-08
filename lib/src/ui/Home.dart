@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mitfahrbank/src/ui/StartJourney.dart';
 
 import '../blocs/journeys/journeys_bloc.dart';
 import '../blocs/journeys/journeys_event.dart';
@@ -21,7 +22,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
         title: Text(
           "Mitfahren",
           style: TextStyle(
@@ -75,18 +75,51 @@ class Home extends StatelessWidget {
                 } else if (state is JourneysAsPassengerLoaded) {
                   final journeys = state.journeys;
 
+                  // FIXME ACTIVE JOURNEYS ARE MISSING!
+
                   return Padding(
                     padding: EdgeInsets.only(top: 185),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: ButtonTheme(
+                            minWidth: double.infinity,
+                            height: 45,
+                            child: FlatButton(
+                              color: Theme
+                                  .of(context)
+                                  .primaryColor,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        StartJourney(
+                                          mitfahrbankRepository:
+                                          mitfahrbankRepository,
+                                        ),
+                                  ),
+                                );
+                              },
+                              child: Text("Jetzt mitfahren"),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24,
+                        ),
                         Text(
                           "Letzte Fahrten".toUpperCase(),
                           style: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),
+                        SizedBox(
+                          height: 16,
                         ),
                         Expanded(
                           child: ListView.separated(

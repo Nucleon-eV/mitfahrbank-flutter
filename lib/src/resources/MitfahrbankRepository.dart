@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
+
 import '../models/journey_model.dart';
 import '../models/user_model.dart';
 import 'http/MitfahrbankAPI/MitfahrbankClient.dart';
@@ -35,5 +38,53 @@ class MitfahrbankRepository {
     // TODO Use cache or something
     final result = await client.getJourneysAsPassenger();
     return result.data;
+  }
+
+  Future<Tuple2<Map<int, String>, Map<String, DropdownMenuItem<String>>>>
+  findStartByCoordinates(double lat, double lon) async {
+    final result = await client.findStartByCoordinates(lat, lon);
+
+    return Tuple2<Map<int, String>, Map<String, DropdownMenuItem<String>>>(
+      Map.fromIterable(
+        result.mitfahrbaenke,
+        key: (item) => item.id,
+        value: (v) => v.name,
+      ),
+      Map.fromIterable(
+        result.mitfahrbaenke,
+        key: (item) => item.id.toString(),
+        value: (v) =>
+            DropdownMenuItem(
+              child: Text(v.name),
+              value: v.id.toString(),
+            ),
+      ),
+    );
+  }
+
+  Future<Tuple2<Map<int, String>, List<DropdownMenuItem<String>>>>
+  findDestinationsByStart(String id) async {
+    final result = await client.findDestinationsByStart(id);
+
+    return Tuple2<Map<int, String>, List<DropdownMenuItem<String>>>(
+      Map.fromIterable(
+        result.data,
+        key: (item) => item.id,
+        value: (v) => v.name,
+      ),
+      result.data
+          .map(
+            (value) =>
+            DropdownMenuItem(
+              child: Text(value.name),
+              value: value.id.toString(),
+            ),
+      )
+          .toList(),
+    );
+  }
+
+  Future startJourney(JourneyStartPOST body) {
+    return client.startJourney(body);
   }
 }
