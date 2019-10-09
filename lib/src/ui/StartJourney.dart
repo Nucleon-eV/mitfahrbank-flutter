@@ -89,11 +89,13 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
       startJourneyBloc.dispatch(LocationDeniedError());
       return;
     }
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    //Position position = await Geolocator()
+    //    .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     // debug code
-    // Position position = Position(latitude: 54.667904, longitude: 9.392943); // TARP
+    Position position = Position(
+        latitude: 54.667904, longitude: 9.392943); // TARP
 
     startJourneyBloc
         .dispatch(GotLocation(lat: position.latitude, lon: position.longitude));

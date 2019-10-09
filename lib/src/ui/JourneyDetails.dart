@@ -94,7 +94,10 @@ class JourneyDetails extends StatelessWidget {
                         Text(
                           DateFormat.yMMMMd('de_DE').format(
                             DateTime.fromMillisecondsSinceEpoch(
-                              journey.endedAt * 1000,
+                              (journey.endedAt != null
+                                  ? journey.endedAt
+                                  : journey.createdAt) *
+                                  1000,
                             ),
                           ),
                           style: TextStyle(
@@ -158,53 +161,72 @@ class JourneyDetails extends StatelessWidget {
                               SizedBox(
                                 height: 8,
                               ),
-                              Card(
-                                margin: EdgeInsets.all(1),
-                                child: ListTile(
-                                  leading: Icon(Icons.access_time),
-                                  title: Text(
-                                    "${DateFormat.Hm().format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            journey.matchedAt * 1000))} Uhr",
-                                  ),
-                                  subtitle: Text(
-                                    "Fahrer gefunden",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Card(
-                                margin: EdgeInsets.all(1),
-                                child: ListTile(
-                                  leading: Icon(Icons.access_time),
-                                  title: Text(
-                                    "${DateFormat.Hm().format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            journey.endedAt * 1000))} Uhr",
-                                  ),
-                                  subtitle: Text(
-                                    "Ankunft",
-                                    style: TextStyle(color: Colors.grey),
+                              Visibility(
+                                visible: journey.matchedAt != null,
+                                child: Card(
+                                  margin: EdgeInsets.all(1),
+                                  child: ListTile(
+                                    leading: Icon(Icons.access_time),
+                                    title: Text(
+                                      "${DateFormat.Hm().format(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              (journey.matchedAt != null
+                                                  ? journey.matchedAt
+                                                  : 0) * 1000))} Uhr",
+                                    ),
+                                    subtitle: Text(
+                                      "Fahrer gefunden",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 8,
+                              Visibility(
+                                visible: journey.matchedAt != null,
+                                child: SizedBox(
+                                  height: 8,
+                                ),
                               ),
-                              Card(
-                                margin: EdgeInsets.all(1),
-                                child: ListTile(
-                                  leading: Icon(Icons.person),
-                                  title: Text(
-                                    "${journey.driver.firstName} ${journey
-                                        .driver.lastName}",
+                              Visibility(
+                                visible: journey.endedAt != null,
+                                child: Card(
+                                  margin: EdgeInsets.all(1),
+                                  child: ListTile(
+                                    leading: Icon(Icons.access_time),
+                                    title: Text(
+                                      "${DateFormat.Hm().format(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              (journey.endedAt != null ? journey
+                                                  .endedAt : 0) * 1000))} Uhr",
+                                    ),
+                                    subtitle: Text(
+                                      "Ankunft",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ),
-                                  subtitle: Text(
-                                    "Fahrer",
-                                    style: TextStyle(color: Colors.grey),
+                                ),
+                              ),
+                              Visibility(
+                                visible: journey.endedAt != null,
+                                child: SizedBox(
+                                  height: 8,
+                                ),
+                              ),
+                              Visibility(
+                                visible: journey.driver != null,
+                                child: Card(
+                                  margin: EdgeInsets.all(1),
+                                  child: ListTile(
+                                    leading: Icon(Icons.person),
+                                    title: Text(
+                                      "${journey.driver != null ? journey.driver
+                                          .firstName : ""} ${journey.driver !=
+                                          null ? journey.driver.lastName : ""}",
+                                    ),
+                                    subtitle: Text(
+                                      "Fahrer",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ),
                                 ),
                               ),

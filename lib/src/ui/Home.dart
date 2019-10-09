@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mitfahrbank/src/models/journey_model.dart';
 import 'package:mitfahrbank/src/ui/StartJourney.dart';
 
 import '../blocs/journeys/journeys_bloc.dart';
@@ -73,43 +74,119 @@ class Home extends StatelessWidget {
                     inner: true,
                   );
                 } else if (state is JourneysAsPassengerLoaded) {
-                  final journeys = state.journeys;
-
-                  // FIXME ACTIVE JOURNEYS ARE MISSING!
+                  final List<Journey> journeys = state.journeys;
+                  final Journey activeJourney = state.activeJourney;
 
                   return Padding(
                     padding: EdgeInsets.only(top: 185),
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: ButtonTheme(
-                            minWidth: double.infinity,
-                            height: 45,
-                            child: FlatButton(
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        StartJourney(
-                                          mitfahrbankRepository:
-                                          mitfahrbankRepository,
-                                        ),
-                                  ),
-                                );
-                              },
-                              child: Text("Jetzt mitfahren"),
+                        Visibility(
+                          visible: activeJourney == null,
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: ButtonTheme(
+                              minWidth: double.infinity,
+                              height: 45,
+                              child: FlatButton(
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          StartJourney(
+                                            mitfahrbankRepository:
+                                            mitfahrbankRepository,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                child: Text("Jetzt mitfahren"),
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
                           height: 24,
+                        ),
+                        Visibility(
+                          visible: activeJourney != null,
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                "Aktive Fahrt".toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Card(
+                                margin: EdgeInsets.all(1),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            BlocProvider<JourneysBloc>(
+                                              builder: (context) {
+                                                return JourneysBloc(
+                                                  mitfahrbankRepository:
+                                                  mitfahrbankRepository,
+                                                )
+                                                  ..dispatch(
+                                                    LoadJourney(
+                                                      activeJourney.id,
+                                                    ),
+                                                  );
+                                              },
+                                              child: JourneyDetails(),
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: Icon(
+                                          Icons.directions_car,
+                                          color: Theme
+                                              .of(context)
+                                              .primaryColor,
+                                        ),
+                                        title: Text(
+                                            "${activeJourney != null
+                                                ? activeJourney.start.name
+                                                : ""} -> ${activeJourney != null
+                                                ? activeJourney.destination.name
+                                                : ""}"),
+                                        subtitle: Text(
+                                          "${DateFormat.Hm('de_DE').format(
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                              (activeJourney != null
+                                                  ? activeJourney.createdAt
+                                                  : 0) *
+                                                  1000,
+                                            ),
+                                          )} Uhr",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
                         ),
                         Text(
                           "Letzte Fahrten".toUpperCase(),
@@ -123,7 +200,6 @@ class Home extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView.separated(
-                            shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
                               return Card(
                                 margin: EdgeInsets.all(1),
@@ -136,10 +212,14 @@ class Home extends StatelessWidget {
                                             BlocProvider<JourneysBloc>(
                                               builder: (context) {
                                                 return JourneysBloc(
-                                                    mitfahrbankRepository:
-                                                    mitfahrbankRepository)
-                                                  ..dispatch(LoadJourney(
-                                                      journeys[index].id));
+                                                  mitfahrbankRepository:
+                                                  mitfahrbankRepository,
+                                                )
+                                                  ..dispatch(
+                                                    LoadJourney(
+                                                      journeys[index].id,
+                                                    ),
+                                                  );
                                               },
                                               child: JourneyDetails(),
                                             ),

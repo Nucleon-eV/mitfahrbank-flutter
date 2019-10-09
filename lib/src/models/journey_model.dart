@@ -43,21 +43,34 @@ class JourneyResp {
 @immutable
 class JourneysDriverResp {
   final List<Journey> data;
+  final Journey singleData;
   final Links links;
   final Meta meta;
 
-  JourneysDriverResp(this.data, this.links, this.meta);
+  JourneysDriverResp(this.data,
+      this.singleData,
+      this.links,
+      this.meta,);
 
   static JourneysDriverResp fromJson(Map<String, dynamic> parsedJson) {
     List<Journey> temp = [];
+    Journey tempJourney;
     if (parsedJson["data"] != null) {
-      for (int i = 0; i < parsedJson['data'].length; i++) {
-        Journey journey = Journey.fromJson(parsedJson['data'][i]);
-        temp.add(journey);
+      if (parsedJson["data"] is Map) {
+        tempJourney = Journey.fromJson(parsedJson['data']);
+        debugPrint("1");
+      }
+      if (parsedJson["data"] is List) {
+        debugPrint("2");
+        for (int i = 0; i < parsedJson['data'].length; i++) {
+          Journey journey = Journey.fromJson(parsedJson['data'][i]);
+          temp.add(journey);
+        }
       }
     }
     return JourneysDriverResp(
       temp,
+      tempJourney,
       parsedJson["links"] != null ? Links.fromJson(parsedJson["links"]) : null,
       parsedJson["meta"] != null ? Meta.fromJson(parsedJson["meta"]) : null,
     );

@@ -18,19 +18,26 @@ class JourneysLoading extends JourneysState {
 class JourneysAsDriverLoaded extends JourneysState {
   final List<Journey> journeys;
 
-  JourneysAsDriverLoaded([this.journeys = const []]) : super([journeys]);
+  JourneysAsDriverLoaded({
+    @required this.journeys,
+  }) : super([journeys]);
 
   @override
-  String toString() => 'JourneysAsDriverLoaded { journeys: $journeys }';
+  String toString() => 'JourneysAsDriverLoaded { journeys: $journeys}';
 }
 
 class JourneysAsPassengerLoaded extends JourneysState {
   final List<Journey> journeys;
+  final Journey activeJourney;
 
-  JourneysAsPassengerLoaded([this.journeys = const []]) : super([journeys]);
+  JourneysAsPassengerLoaded({
+    @required this.journeys,
+    @required this.activeJourney,
+  }) : super([journeys, activeJourney]);
 
   @override
-  String toString() => 'JourneysAsPassengerLoaded { journeys: $journeys }';
+  String toString() =>
+      'JourneysAsPassengerLoaded { journeys: $journeys, activeJourney: $activeJourney  }';
 }
 
 class JourneyLoaded extends JourneysState {

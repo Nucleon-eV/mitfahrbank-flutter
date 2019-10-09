@@ -85,7 +85,7 @@ class MitfahrbankClient {
       final results = json.decode(response.body);
       return JourneysDriverResp.fromJson(results);
     } else {
-      throw Exception("Unable to get Journey");
+      throw Exception("Unable to get Journeys");
     }
   }
 
@@ -97,7 +97,19 @@ class MitfahrbankClient {
       final results = json.decode(response.body);
       return JourneysDriverResp.fromJson(results);
     } else {
-      throw Exception("Unable to get Journey");
+      throw Exception("Unable to get Journeys");
+    }
+  }
+
+  // TODO add pagination
+  Future<JourneysDriverResp> getActiveJourneys() async {
+    http.Response response = await _get("/user/journeys/active");
+
+    if (response.statusCode == 200) {
+      final results = json.decode(response.body);
+      return JourneysDriverResp.fromJson(results);
+    } else {
+      throw Exception("Unable to get active Journeys");
     }
   }
 

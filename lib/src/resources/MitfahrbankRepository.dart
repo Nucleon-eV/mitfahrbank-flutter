@@ -40,6 +40,11 @@ class MitfahrbankRepository {
     return result.data;
   }
 
+  Future<Journey> getActiveJourneys() async {
+    final result = await client.getActiveJourneys();
+    return result.singleData;
+  }
+
   Future<Tuple2<Map<int, String>, Map<String, DropdownMenuItem<String>>>>
   findStartByCoordinates(double lat, double lon) async {
     final result = await client.findStartByCoordinates(lat, lon);
