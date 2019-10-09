@@ -40,53 +40,50 @@ class _LoginFormState extends State<LoginForm> {
           BuildContext context,
           LoginState state,
         ) {
-          return Padding(
-            padding: EdgeInsets.all(16),
-            child: Form(
-              child: Column(
-                children: [
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: 'E-Mail Adresse',
-                    ),
-                    controller: _usernameController,
+          return Form(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              children: <Widget>[
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'E-Mail Adresse',
                   ),
-                  SizedBox(
-                    height: 8,
+                  controller: _usernameController,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Passwort',
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Passwort',
-                    ),
-                    controller: _passwordController,
-                    obscureText: true,
+                  controller: _passwordController,
+                  obscureText: true,
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                ButtonTheme(
+                  minWidth: double.infinity,
+                  child: RaisedButton(
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    textColor: Colors.white,
+                    onPressed:
+                    state is! LoginLoading ? _onLoginButtonPressed : null,
+                    child: Text('Einsteigen'),
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  ButtonTheme(
-                    minWidth: double.infinity,
-                    child: RaisedButton(
-                      color: Theme
-                          .of(context)
-                          .primaryColor,
-                      textColor: Colors.white,
-                      onPressed:
-                      state is! LoginLoading ? _onLoginButtonPressed : null,
-                      child: Text('Einsteigen'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    child: state is LoginLoading
-                        ? LinearProgressIndicator()
-                        : null,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  child:
+                  state is LoginLoading ? LinearProgressIndicator() : null,
+                ),
+              ],
             ),
           );
         },
