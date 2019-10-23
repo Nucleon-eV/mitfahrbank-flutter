@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:mitfahrbank/src/models/journey_model.dart';
 import 'package:tuple/tuple.dart';
 
+import '../../../models/journey_model.dart';
 import '../../../resources/MitfahrbankRepository.dart';
 import '../../../resources/http/MitfahrbankAPI/MitfahrbankClient.dart';
 import 'start_journey_event.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:mitfahrbank/src/blocs/journeys/startJourney/start_journey_event.dart';
-import 'package:mitfahrbank/src/blocs/journeys/startJourney/start_journey_state.dart';
-import 'package:mitfahrbank/src/ui/LoadingIndicator.dart';
 import 'package:tuple/tuple.dart';
 
+import './LoadingIndicator.dart';
 import '../blocs/journeys/startJourney/start_journey_bloc.dart';
+import '../blocs/journeys/startJourney/start_journey_event.dart';
+import '../blocs/journeys/startJourney/start_journey_state.dart';
 import '../resources/MitfahrbankRepository.dart';
 
 class StartJourney extends StatelessWidget {
@@ -94,8 +94,8 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
     //    .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     // debug code
-    Position position = Position(
-        latitude: 54.667904, longitude: 9.392943); // TARP
+    Position position =
+    Position(latitude: 54.667904, longitude: 9.392943); // TARP
 
     startJourneyBloc
         .dispatch(GotLocation(lat: position.latitude, lon: position.longitude));

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:mitfahrbank/src/models/journey_model.dart';
-import 'package:mitfahrbank/src/ui/StartJourney.dart';
 
+import './StartJourney.dart';
 import '../blocs/journeys/journeys_bloc.dart';
 import '../blocs/journeys/journeys_event.dart';
 import '../blocs/journeys/journeys_state.dart';
+import '../models/journey_model.dart';
 import '../resources/MitfahrbankRepository.dart';
 import 'JourneyDetails.dart';
 import 'LoadingIndicator.dart';

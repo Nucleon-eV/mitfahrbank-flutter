@@ -1,5 +1,5 @@
+import 'package:Mitfahrbank/main.dart' as app;
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:mitfahrbank/main.dart' as app;
 
 void main() {
   // This line enables the extension.

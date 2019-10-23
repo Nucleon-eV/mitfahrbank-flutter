@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mitfahrbank/src/models/user_model.dart';
+
+import './user_model.dart';
 
 @immutable
 class Mitfahrbank {
