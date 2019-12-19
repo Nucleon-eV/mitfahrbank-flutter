@@ -36,15 +36,15 @@ class StartJourneyBloc extends Bloc<StartJourneyEvent, StartJourneyState> {
           Map<int, Tuple2<Map<int, String>, List<DropdownMenuItem<String>>>>();
 
       for (String k in startbaenke.keys) {
-        Tuple2<Map<int, String>, List<DropdownMenuItem<String>>> destionations;
+        Tuple2<Map<int, String>, List<DropdownMenuItem<String>>> destinations;
         try {
-          destionations =
+          destinations =
               await mitfahrbankRepository.findDestinationsByStart(k);
         } on HTTPException catch (e) {
           yield HTTPError(errorMessage: e.cause);
           continue;
         }
-        destinationsByStart[int.parse(k)] = destionations;
+        destinationsByStart[int.parse(k)] = destinations;
       }
       yield MitfahrbaenkeLoaded(
         startMitfahrbaenke: startbaenke.values.toList(),

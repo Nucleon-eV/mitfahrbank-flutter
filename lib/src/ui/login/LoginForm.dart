@@ -11,13 +11,20 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  LoginBloc _loginBloc;
+
+  @override
+  void dispose() {
+    _loginBloc?.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _loginBloc = BlocProvider.of<LoginBloc>(context);
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
 
     _onLoginButtonPressed() {
-      _loginBloc.dispatch(LoginButtonPressed(
+      _loginBloc.add(LoginButtonPressed(
         email: _usernameController.text,
         password: _passwordController.text,
       ));

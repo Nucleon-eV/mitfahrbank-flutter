@@ -104,11 +104,11 @@ class Mitnehmen extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             BlocProvider<JourneysBloc>(
-                                              builder: (context) {
+                                              create: (context) {
                                                 return JourneysBloc(
                                                     mitfahrbankRepository:
                                                     mitfahrbankRepository)
-                                                  ..dispatch(LoadJourney(
+                                                  ..add(LoadJourney(
                                                       journeys[index].id));
                                               },
                                               child: JourneyDetails(),
@@ -163,10 +163,10 @@ class Mitnehmen extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) =>
                     BlocProvider<JourneysBloc>(
-                      builder: (context) {
+                      create: (context) {
                         return JourneysBloc(
                             mitfahrbankRepository: mitfahrbankRepository)
-                          ..dispatch(LoadJourneysAsPassenger());
+                          ..add(LoadJourneysAsPassenger());
                       },
                       child: Home(mitfahrbankRepository: mitfahrbankRepository),
                     ),

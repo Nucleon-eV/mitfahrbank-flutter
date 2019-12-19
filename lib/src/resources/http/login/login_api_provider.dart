@@ -21,7 +21,7 @@ class LoginProvider {
       return LoginRESPModel.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to login');
     }
   }
 }

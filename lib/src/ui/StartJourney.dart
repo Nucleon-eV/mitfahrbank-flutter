@@ -52,7 +52,7 @@ class StartJourney extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 185),
             child: BlocProvider<StartJourneyBloc>(
-              builder: (context) {
+              create: (context) {
                 return StartJourneyBloc(
                   mitfahrbankRepository: mitfahrbankRepository,
                 );
@@ -86,7 +86,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
     GeolocationStatus geolocationStatus =
         await Geolocator().checkGeolocationPermissionStatus();
     if (geolocationStatus == GeolocationStatus.denied) {
-      startJourneyBloc.dispatch(LocationDeniedError());
+      startJourneyBloc.add(LocationDeniedError());
       return;
     }
 
@@ -98,7 +98,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
     Position(latitude: 54.667904, longitude: 9.392943); // TARP
 
     startJourneyBloc
-        .dispatch(GotLocation(lat: position.latitude, lon: position.longitude));
+        .add(GotLocation(lat: position.latitude, lon: position.longitude));
     setState(() {
       hadGeo = true;
     });
@@ -113,7 +113,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
 
     _onStartButtonPressed() async {
       // TODO dispatch loading first
-      _startJourneyBloc.dispatch(
+      _startJourneyBloc.add(
         StartButtonPressed(
           comment: _commentController.text,
           startID: startMitfahrbankID,

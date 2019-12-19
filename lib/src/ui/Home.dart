@@ -135,12 +135,12 @@ class Home extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             BlocProvider<JourneysBloc>(
-                                              builder: (context) {
+                                              create: (context) {
                                                 return JourneysBloc(
                                                   mitfahrbankRepository:
                                                   mitfahrbankRepository,
                                                 )
-                                                  ..dispatch(
+                                                  ..add(
                                                     LoadJourney(
                                                       activeJourney.id,
                                                     ),
@@ -210,12 +210,12 @@ class Home extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             BlocProvider<JourneysBloc>(
-                                              builder: (context) {
+                                              create: (context) {
                                                 return JourneysBloc(
                                                   mitfahrbankRepository:
                                                   mitfahrbankRepository,
                                                 )
-                                                  ..dispatch(
+                                                  ..add(
                                                     LoadJourney(
                                                       journeys[index].id,
                                                     ),
@@ -273,10 +273,10 @@ class Home extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) =>
                     BlocProvider<JourneysBloc>(
-                      builder: (context) {
+                      create: (context) {
                         return JourneysBloc(
                             mitfahrbankRepository: mitfahrbankRepository)
-                          ..dispatch(LoadJourneysAsDriver());
+                          ..add(LoadJourneysAsDriver());
                       },
                       child:
                       Mitnehmen(mitfahrbankRepository: mitfahrbankRepository),

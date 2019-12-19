@@ -6,7 +6,7 @@ part of 'DatabaseProvider.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class User extends DataClass implements Insertable<User> {
   final int id;
   final bool own;
@@ -128,7 +128,7 @@ class User extends DataClass implements Insertable<User> {
   }
 
   @override
-  T createCompanion<T extends UpdateCompanion<User>>(bool nullToAbsent) {
+  UsersCompanion createCompanion(bool nullToAbsent) {
     return UsersCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       own: own == null && nullToAbsent ? const Value.absent() : Value(own),
@@ -170,7 +170,7 @@ class User extends DataClass implements Insertable<User> {
       carPhoto: carPhoto == null && nullToAbsent
           ? const Value.absent()
           : Value(carPhoto),
-    ) as T;
+    );
   }
 
   User copyWith(
@@ -272,22 +272,22 @@ class User extends DataClass implements Insertable<User> {
   bool operator ==(other) =>
       identical(this, other) ||
       (other is User &&
-          other.id == id &&
-          other.own == own &&
-          other.token == token &&
-          other.firstName == firstName &&
-          other.lastName == lastName &&
-          other.email == email &&
-          other.firstInstall == firstInstall &&
-          other.usesPushNotifications == usesPushNotifications &&
-          other.usesEmailNotifications == usesEmailNotifications &&
-          other.createdAt == createdAt &&
-          other.updatedAt == updatedAt &&
-          other.admin == admin &&
-          other.verified == verified &&
-          other.avatar == avatar &&
-          other.distanceToStartInMeters == distanceToStartInMeters &&
-          other.carPhoto == carPhoto);
+          other.id == this.id &&
+          other.own == this.own &&
+          other.token == this.token &&
+          other.firstName == this.firstName &&
+          other.lastName == this.lastName &&
+          other.email == this.email &&
+          other.firstInstall == this.firstInstall &&
+          other.usesPushNotifications == this.usesPushNotifications &&
+          other.usesEmailNotifications == this.usesEmailNotifications &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.admin == this.admin &&
+          other.verified == this.verified &&
+          other.avatar == this.avatar &&
+          other.distanceToStartInMeters == this.distanceToStartInMeters &&
+          other.carPhoto == this.carPhoto);
 }
 
 class UsersCompanion extends UpdateCompanion<User> {
@@ -325,6 +325,37 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.distanceToStartInMeters = const Value.absent(),
     this.carPhoto = const Value.absent(),
   });
+
+  UsersCompanion.insert({
+    @required int id,
+    @required bool own,
+    @required String token,
+    @required String firstName,
+    this.lastName = const Value.absent(),
+    @required String email,
+    @required bool firstInstall,
+    @required bool usesPushNotifications,
+    @required bool usesEmailNotifications,
+    @required int createdAt,
+    @required int updatedAt,
+    @required bool admin,
+    @required bool verified,
+    this.avatar = const Value.absent(),
+    this.distanceToStartInMeters = const Value.absent(),
+    this.carPhoto = const Value.absent(),
+  })
+      : id = Value(id),
+        own = Value(own),
+        token = Value(token),
+        firstName = Value(firstName),
+        email = Value(email),
+        firstInstall = Value(firstInstall),
+        usesPushNotifications = Value(usesPushNotifications),
+        usesEmailNotifications = Value(usesEmailNotifications),
+        createdAt = Value(createdAt),
+        updatedAt = Value(updatedAt),
+        admin = Value(admin),
+        verified = Value(verified);
   UsersCompanion copyWith(
       {Value<int> id,
       Value<bool> own,
@@ -776,8 +807,7 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 }
 
 abstract class _$DatabaseProvider extends GeneratedDatabase {
-  _$DatabaseProvider(QueryExecutor e)
-      : super(const SqlTypeSystem.withDefaults(), e);
+  _$DatabaseProvider(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $UsersTable _users;
   $UsersTable get users => _users ??= $UsersTable(this);
   @override

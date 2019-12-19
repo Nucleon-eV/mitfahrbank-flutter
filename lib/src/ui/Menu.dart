@@ -134,7 +134,7 @@ class Menu extends StatelessWidget {
               padding: EdgeInsets.zero,
               onPressed: () {
                 BlocProvider.of<AuthenticationBloc>(context)
-                    .dispatch(LoggedOut());
+                    .add(LoggedOut());
                 Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
               },
               child: Text(
@@ -160,10 +160,10 @@ class Menu extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) =>
                     BlocProvider<JourneysBloc>(
-                      builder: (context) {
+                      create: (context) {
                         return JourneysBloc(
                             mitfahrbankRepository: mitfahrbankRepository)
-                          ..dispatch(LoadJourneysAsDriver());
+                          ..add(LoadJourneysAsDriver());
                       },
                       child:
                       Mitnehmen(mitfahrbankRepository: mitfahrbankRepository),
@@ -177,10 +177,10 @@ class Menu extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) =>
                     BlocProvider<JourneysBloc>(
-                      builder: (context) {
+                      create: (context) {
                         return JourneysBloc(
                             mitfahrbankRepository: mitfahrbankRepository)
-                          ..dispatch(LoadJourneysAsPassenger());
+                          ..add(LoadJourneysAsPassenger());
                       },
                       child: Home(mitfahrbankRepository: mitfahrbankRepository),
                     ),

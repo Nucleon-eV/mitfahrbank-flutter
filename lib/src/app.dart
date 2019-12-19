@@ -31,10 +31,10 @@ class MitfahrbankApp extends StatelessWidget {
         builder: (context, state) {
           if (state is AuthenticationAuthenticated) {
             return BlocProvider<JourneysBloc>(
-              builder: (context) {
+              create: (context) {
                 return JourneysBloc(
                     mitfahrbankRepository: mitfahrbankRepository)
-                  ..dispatch(LoadJourneysAsPassenger());
+                  ..add(LoadJourneysAsPassenger());
               },
               child: Home(
                 mitfahrbankRepository: mitfahrbankRepository,
