@@ -1,0 +1,61 @@
+name: Flutter CI
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  cirrusci/flutter:latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: flutter packages get
+    - name: Run tests
+      run: flutter test
+      
+  analyze:
+    runs-on: [ubuntu-latest]
+    container: 
+      image: cirrusci/flutter:latest
+    
+    steps:
+      - name: Install dependencies
+        run: flutter packages get
+      - name: Run analyze
+        run: flutter analyze
+        
+  build:
+    runs-on: [ubuntu-latest]
+    container: 
+      image: cirrusci/flutter:latest
+    
+    steps:
+      - name: Install dependencies
+        run: flutter packages get
+      - name: Run build
+        run: flutter build apk -v --debug
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-debug.apk
+          path: "build/app/outputs/apk/debug/app-debug.apk"
+  visual_test:
+    runs-on: [macos-latest]
+    container: 
+      image: cirrusci/flutter:latest
+    
+    steps:
+      - name: Pod Repo update
+        run: pod repo update
+      - name: Install dependencies
+        run: flutter packages get
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.2.0
+        with:
+          api-level: 28
+      - name: Flutter drive
+        run: flutter drive --target=test_driver/app.dart
