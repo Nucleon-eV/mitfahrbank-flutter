@@ -53,9 +53,12 @@ jobs:
         run: pod repo update
       - name: Install dependencies
         run: flutter packages get
+      - name: setup-docker
+        uses: docker-practice/actions-setup-docker@0.0.1
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.2.0
         with:
           api-level: 28
+          script: ./gradlew connectedCheck
       - name: Flutter drive
         run: flutter drive --target=test_driver/app.dart
