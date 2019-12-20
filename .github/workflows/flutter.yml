@@ -11,7 +11,7 @@ jobs:
       image:  cirrusci/flutter:latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2.0.0
     - name: Install dependencies
       run: flutter packages get
     - name: Run tests
@@ -23,6 +23,7 @@ jobs:
       image: cirrusci/flutter:latest
     
     steps:
+      - uses: actions/checkout@v2.0.0
       - name: Install dependencies
         run: flutter packages get
       - name: Run analyze
@@ -34,6 +35,7 @@ jobs:
       image: cirrusci/flutter:latest
     
     steps:
+      - uses: actions/checkout@v2.0.0
       - name: Install dependencies
         run: flutter packages get
       - name: Run build
@@ -49,6 +51,7 @@ jobs:
       image: cirrusci/flutter:latest
     
     steps:
+      - uses: actions/checkout@v2.0.0
       - name: Pod Repo update
         run: pod repo update
       - name: Install dependencies
