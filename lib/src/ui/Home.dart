@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 import './StartJourney.dart';
 import '../blocs/journeys/journeys_bloc.dart';
@@ -301,7 +302,7 @@ class Home extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.thumb_up),
+            icon: Icon(OMIcons.thumbUp),
             title: Text('Mitfahren'),
           ),
           BottomNavigationBarItem(
@@ -309,8 +310,8 @@ class Home extends StatelessWidget {
             title: Text('Mitnehmen'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text('Menü'),
+            icon: Icon(OMIcons.settings),
+            title: Text('Einstellungen'),
           )
         ],
       ),
