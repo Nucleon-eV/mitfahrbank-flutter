@@ -9,11 +9,21 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) =>
       inner
           ? Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          valueColor:
+          AlwaysStoppedAnimation<Color>(Theme
+              .of(context)
+              .primaryColor),
+        ),
       )
           : Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor:
+            AlwaysStoppedAnimation<Color>(Theme
+                .of(context)
+                .primaryColor),
+          ),
         ),
       );
 }

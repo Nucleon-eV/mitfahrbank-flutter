@@ -152,6 +152,9 @@ class Menu extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Theme
+            .of(context)
+            .primaryColor,
         currentIndex: 2, // this will be set when a new tab is tapped
         onTap: (int tab) {
           if (tab == 1) {

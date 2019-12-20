@@ -59,6 +59,28 @@ class MitfahrbankApp extends StatelessWidget {
       color: Colors.white,
       brightness: Brightness.light,
     ),
+    cursorColor: Color(0xffA9C937),
+    hintColor: Color(0xffA9C937),
+    primaryIconTheme: IconThemeData(
+      color: Color(0xffA9C937),
+    ),
+    iconTheme: IconThemeData(
+      color: Color(0xffA9C937),
+    ),
+    accentIconTheme: IconThemeData(
+      color: Color(0xffA9C937),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        color: Color(0xffA9C937),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Color(0xffA9C937),
+        ),
+      ),
+    ),
+    accentColor: Color(0xffA9C937),
     primarySwatch: MaterialColor(
       4289317175,
       {
@@ -80,9 +102,32 @@ class MitfahrbankApp extends StatelessWidget {
   ThemeData get baseDarkTheme => ThemeData(
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.grey),
       color: Colors.black,
       brightness: Brightness.dark,
     ),
+    cursorColor: Color(0xffA9C937),
+    hintColor: Color(0xffA9C937),
+    primaryIconTheme: IconThemeData(
+      color: Color(0xffA9C937),
+    ),
+    iconTheme: IconThemeData(
+      color: Color(0xffA9C937),
+    ),
+    accentIconTheme: IconThemeData(
+      color: Color(0xffA9C937),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        color: Color(0xffA9C937),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Color(0xffA9C937),
+        ),
+      ),
+    ),
+    accentColor: Color(0xffA9C937),
     primarySwatch: MaterialColor(
       0xffA9C937,
       {

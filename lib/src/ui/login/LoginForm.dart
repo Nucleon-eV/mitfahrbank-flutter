@@ -87,8 +87,14 @@ class _LoginFormState extends State<LoginForm> {
                   height: 8,
                 ),
                 Container(
-                  child:
-                  state is LoginLoading ? LinearProgressIndicator() : null,
+                  child: state is LoginLoading
+                      ? LinearProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme
+                            .of(context)
+                            .primaryColor),
+                  )
+                      : null,
                 ),
               ],
             ),

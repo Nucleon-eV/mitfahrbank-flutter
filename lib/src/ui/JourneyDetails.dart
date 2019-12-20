@@ -41,7 +41,6 @@ class JourneyDetails extends StatelessWidget {
           Journey journey = state.journey;
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
               title: Text(
                 "${journey.start.name} -> ${journey.destination.name}",
                 style: TextStyle(

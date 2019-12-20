@@ -27,6 +27,7 @@ class StartJourneyBloc extends Bloc<StartJourneyEvent, StartJourneyState> {
         startbaenkeRaw = await mitfahrbankRepository.findStartByCoordinates(
             event.lat, event.lon);
       } on HTTPException catch (e) {
+        debugPrint(e.cause);
         yield HTTPError(errorMessage: e.cause);
         return;
       }
