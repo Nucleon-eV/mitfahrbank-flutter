@@ -51,7 +51,7 @@ jobs:
         run: flutter packages get
       - name: Run build
         run: flutter build apk -v --debug
-      - name: Upload math result for job 1
+      - name: Upload debug apk
         uses: actions/upload-artifact@v1
         with:
           name: app-debug.apk
