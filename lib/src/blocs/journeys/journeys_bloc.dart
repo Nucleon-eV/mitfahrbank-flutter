@@ -31,9 +31,11 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
       yield JourneysAsDriverLoaded(
         journeys: journeys,
       );
+      return;
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
       yield JourneysNotLoaded();
+      return;
     }
   }
 
@@ -49,7 +51,7 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
         activeJourney: activeJourneys,
       );
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
       yield JourneysNotLoaded();
     }
   }
@@ -59,7 +61,7 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
       final journey = await this.mitfahrbankRepository.getJourney(id);
       yield JourneyLoaded(journey: journey);
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
       yield JourneysNotLoaded();
     }
   }

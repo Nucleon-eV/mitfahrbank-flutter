@@ -325,7 +325,6 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.distanceToStartInMeters = const Value.absent(),
     this.carPhoto = const Value.absent(),
   });
-
   UsersCompanion.insert({
     @required int id,
     @required bool own,
