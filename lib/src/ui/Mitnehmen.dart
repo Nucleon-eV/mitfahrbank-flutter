@@ -23,15 +23,9 @@ class Mitnehmen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Mitnehmen",
-          style: TextStyle(
-            color: Theme
-                .of(context)
-                .primaryColor,
-            //fontWeight: FontWeight.bold,
-            //fontSize: 30,
-          ),
         ),
       ),
       // TODO replace "User" with real data
@@ -155,51 +149,58 @@ class Mitnehmen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Theme
-            .of(context)
-            .primaryColor,
-        currentIndex: 1, // this will be set when a new tab is tapped
-        onTap: (int tab) {
-          if (tab == 0) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    BlocProvider<JourneysBloc>(
-                      create: (context) {
-                        return JourneysBloc(
-                            mitfahrbankRepository: mitfahrbankRepository)
-                          ..add(LoadJourneysAsPassenger());
-                      },
-                      child: Home(mitfahrbankRepository: mitfahrbankRepository),
-                    ),
-              ),
-            );
-          }
-          if (tab == 2) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 6)]),
+        child: BottomNavigationBar(
+          backgroundColor: Theme
+              .of(context)
+              .primaryColor,
+          fixedColor: Colors.white,
+          currentIndex: 1,
+          // this will be set when a new tab is tapped
+          onTap: (int tab) {
+            if (tab == 0) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
                   builder: (context) =>
-                      Menu(mitfahrbankRepository: mitfahrbankRepository)),
-            );
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(OMIcons.thumbUp),
-            title: Text('Mitfahren'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            title: Text('Mitnehmen'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(OMIcons.settings),
-            title: Text('Einstellungen'),
-          )
-        ],
+                      BlocProvider<JourneysBloc>(
+                        create: (context) {
+                          return JourneysBloc(
+                              mitfahrbankRepository: mitfahrbankRepository)
+                            ..add(LoadJourneysAsPassenger());
+                        },
+                        child: Home(
+                            mitfahrbankRepository: mitfahrbankRepository),
+                      ),
+                ),
+              );
+            }
+            if (tab == 2) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Menu(mitfahrbankRepository: mitfahrbankRepository)),
+              );
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(OMIcons.thumbUp),
+              title: Text('Mitfahren'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.directions_car),
+              title: Text('Mitnehmen'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(OMIcons.settings),
+              title: Text('Einstellungen'),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -56,8 +56,15 @@ class MitfahrbankApp extends StatelessWidget {
   ThemeData get baseLightTheme => ThemeData(
     brightness: Brightness.light,
     appBarTheme: AppBarTheme(
-      color: Colors.white,
+      color: Color(0xffA9C937),
       brightness: Brightness.light,
+      textTheme: TextTheme(
+        title: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
     ),
     cursorColor: Color(0xffA9C937),
     hintColor: Color(0xffA9C937),
@@ -103,7 +110,11 @@ class MitfahrbankApp extends StatelessWidget {
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(color: Colors.grey),
-      color: Colors.black,
+      color: Color(0xffA9C937),
+      textTheme: TextTheme(
+        title: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       brightness: Brightness.dark,
     ),
     cursorColor: Color(0xffA9C937),

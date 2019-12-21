@@ -24,15 +24,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Mitfahren",
-          style: TextStyle(
-            color: Theme
-                .of(context)
-                .primaryColor,
-            //fontWeight: FontWeight.bold,
-            //fontSize: 30,
-          ),
         ),
       ),
       // TODO replace "User" with real data
@@ -265,55 +259,58 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Theme
-            .of(context)
-            .primaryColor,
-        currentIndex: 0, // this will be set when a new tab is tapped
-        onTap: (int tab) {
-          if (tab == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    BlocProvider<JourneysBloc>(
-                      create: (context) {
-                        return JourneysBloc(
-                            mitfahrbankRepository: mitfahrbankRepository)
-                          ..add(LoadJourneysAsDriver());
-                      },
-                      child:
-                      Mitnehmen(mitfahrbankRepository: mitfahrbankRepository),
-                    ),
-              ),
-            );
-          }
-          if (tab == 2) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    Menu(
-                      mitfahrbankRepository: mitfahrbankRepository,
-                    ),
-              ),
-            );
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(OMIcons.thumbUp),
-            title: Text('Mitfahren'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            title: Text('Mitnehmen'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(OMIcons.settings),
-            title: Text('Einstellungen'),
-          )
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 6)]),
+        child: BottomNavigationBar(
+          backgroundColor: Theme
+              .of(context)
+              .primaryColor,
+          fixedColor: Colors.white,
+          currentIndex: 0,
+          // this will be set when a new tab is tapped
+          onTap: (int tab) {
+            if (tab == 1) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      BlocProvider<JourneysBloc>(
+                        create: (context) {
+                          return JourneysBloc(
+                              mitfahrbankRepository: mitfahrbankRepository)
+                            ..add(LoadJourneysAsDriver());
+                        },
+                        child:
+                        Mitnehmen(mitfahrbankRepository: mitfahrbankRepository),
+                      ),
+                ),
+              );
+            }
+            if (tab == 2) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        Menu(mitfahrbankRepository: mitfahrbankRepository)),
+              );
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(OMIcons.thumbUp),
+              title: Text('Mitfahren'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.directions_car),
+              title: Text('Mitnehmen'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(OMIcons.settings),
+              title: Text('Einstellungen'),
+            )
+          ],
+        ),
       ),
     );
   }
