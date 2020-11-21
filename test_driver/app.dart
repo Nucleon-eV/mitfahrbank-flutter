@@ -1,4 +1,4 @@
-import 'package:Mitfahrbank/main.dart' as app;
+import 'package:mitfahrbank/main.dart' as app;
 import 'package:flutter_driver/driver_extension.dart';
 
 void main() {
