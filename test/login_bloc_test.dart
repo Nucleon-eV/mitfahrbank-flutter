@@ -1,6 +1,6 @@
-import 'package:Mitfahrbank/src/blocs/Authentication.dart';
-import 'package:Mitfahrbank/src/blocs/Login.dart';
-import 'package:Mitfahrbank/src/resources/UserRepository.dart';
+import 'package:mitfahrbank/src/blocs/Authentication.dart';
+import 'package:mitfahrbank/src/blocs/Login.dart';
+import 'package:mitfahrbank/src/resources/UserRepository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

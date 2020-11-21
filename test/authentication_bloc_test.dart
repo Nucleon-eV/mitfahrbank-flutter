@@ -1,5 +1,5 @@
-import 'package:Mitfahrbank/src/blocs/Authentication.dart';
-import 'package:Mitfahrbank/src/resources/UserRepository.dart';
+import 'package:mitfahrbank/src/blocs/Authentication.dart';
+import 'package:mitfahrbank/src/resources/UserRepository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

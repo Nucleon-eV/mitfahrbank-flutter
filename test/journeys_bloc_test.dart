@@ -1,8 +1,8 @@
-import 'package:Mitfahrbank/src/blocs/journeys/journeys_bloc.dart';
-import 'package:Mitfahrbank/src/blocs/journeys/journeys_event.dart';
-import 'package:Mitfahrbank/src/blocs/journeys/journeys_state.dart';
-import 'package:Mitfahrbank/src/models/journey_model.dart';
-import 'package:Mitfahrbank/src/resources/MitfahrbankRepository.dart';
+import 'package:mitfahrbank/src/blocs/journeys/journeys_bloc.dart';
+import 'package:mitfahrbank/src/blocs/journeys/journeys_event.dart';
+import 'package:mitfahrbank/src/blocs/journeys/journeys_state.dart';
+import 'package:mitfahrbank/src/models/journey_model.dart';
+import 'package:mitfahrbank/src/resources/MitfahrbankRepository.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
