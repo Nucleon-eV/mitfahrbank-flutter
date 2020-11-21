@@ -75,7 +75,8 @@ jobs:
       - name: setup-docker
         uses: docker-practice/actions-setup-docker@0.0.1
       - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.2.0
+        uses: ReactiveCircus/android-emulator-runner@v2
         with:
           api-level: 30
+          target: google_apis
           script: flutter drive --target=test_driver/app.dart
