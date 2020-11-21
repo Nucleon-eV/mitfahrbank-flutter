@@ -14,7 +14,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable' # or: 'dev' or 'beta'
+          channel: 'beta' # or: 'dev' or 'beta'
       - name: Install dependencies
         run: flutter packages get
       - name: Run tests
@@ -30,7 +30,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable' # or: 'dev' or 'beta'
+          channel: 'beta' # or: 'dev' or 'beta'
       - name: Install dependencies
         run: flutter packages get
       - name: Run analyze
@@ -46,7 +46,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable' # or: 'dev' or 'beta'
+          channel: 'beta' # or: 'dev' or 'beta'
       - name: Install dependencies
         run: flutter packages get
       - name: Run build
@@ -67,7 +67,7 @@ jobs:
           java-version: 1.8
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'stable' # or: 'dev' or 'beta'
+          channel: 'beta' # or: 'dev' or 'beta'
       - name: Pod Repo update
         run: pod repo update
       - name: Install dependencies
@@ -77,5 +77,5 @@ jobs:
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.2.0
         with:
-          api-level: 28
+          api-level: 30
           script: flutter drive --target=test_driver/app.dart
