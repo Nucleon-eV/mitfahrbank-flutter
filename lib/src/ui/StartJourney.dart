@@ -83,9 +83,8 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
   bool hadGeo = false;
 
   Future _getLocation(StartJourneyBloc startJourneyBloc) async {
-    GeolocationStatus geolocationStatus =
-        await Geolocator().checkGeolocationPermissionStatus();
-    if (geolocationStatus == GeolocationStatus.denied) {
+    LocationPermission geolocationStatus = await Geolocator.checkPermission();
+    if (geolocationStatus == LocationPermission.denied) {
       startJourneyBloc.add(LocationDeniedError());
       return;
     }
@@ -95,7 +94,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
 
     // debug code
     Position position =
-    Position(latitude: 54.667904, longitude: 9.392943); // TARP
+        Position(latitude: 54.667904, longitude: 9.392943); // TARP
 
     startJourneyBloc
         .add(GotLocation(lat: position.latitude, lon: position.longitude));
@@ -125,7 +124,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
     return BlocListener<StartJourneyBloc, StartJourneyState>(
       listener: (context, state) {
         if (state is HTTPError) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('${state.errorMessage}'),
               backgroundColor: Colors.red,
@@ -133,7 +132,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
           );
         }
         if (state is LocationDeniedErrorState) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
                   'Entschuldigung. Damit du mitfahren kannst brauchen wir deine Location um zu ermitteln ob du in der Nähe einer Mitfahrbank dich befindest.'),
@@ -178,7 +177,7 @@ class _StartJourneyFormState extends State<StartJourneyForm> {
 
             return Form(
               key: _formKey,
-              autovalidate: true,
+              autovalidateMode: AutovalidateMode.always,
               child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 children: <Widget>[

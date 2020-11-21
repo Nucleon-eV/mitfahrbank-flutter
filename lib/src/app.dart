@@ -56,28 +56,30 @@ class MitfahrbankApp extends StatelessWidget {
   ThemeData get baseLightTheme => ThemeData(
     brightness: Brightness.light,
     appBarTheme: AppBarTheme(
-      color: Color(0xffA9C937),
-      brightness: Brightness.light,
-      textTheme: TextTheme(
-        title: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
+          color: Color(0xffA9C937),
+          brightness: Brightness.light,
+          textTheme: TextTheme(
+            headline6: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
         ),
-      ),
-    ),
-    cursorColor: Color(0xffA9C937),
-    hintColor: Color(0xffA9C937),
-    primaryIconTheme: IconThemeData(
-      color: Color(0xffA9C937),
-    ),
-    iconTheme: IconThemeData(
-      color: Color(0xffA9C937),
-    ),
-    accentIconTheme: IconThemeData(
-      color: Color(0xffA9C937),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Color(0xffA9C937),
+        ),
+        hintColor: Color(0xffA9C937),
+        primaryIconTheme: IconThemeData(
+          color: Color(0xffA9C937),
+        ),
+        iconTheme: IconThemeData(
+          color: Color(0xffA9C937),
+        ),
+        accentIconTheme: IconThemeData(
+          color: Color(0xffA9C937),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(
         color: Color(0xffA9C937),
       ),
@@ -112,12 +114,14 @@ class MitfahrbankApp extends StatelessWidget {
       iconTheme: IconThemeData(color: Colors.grey),
       color: Color(0xffA9C937),
       textTheme: TextTheme(
-        title: TextStyle(
+        headline6: TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
       ),
       brightness: Brightness.dark,
     ),
-    cursorColor: Color(0xffA9C937),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Color(0xffA9C937),
+    ),
     hintColor: Color(0xffA9C937),
     primaryIconTheme: IconThemeData(
       color: Color(0xffA9C937),

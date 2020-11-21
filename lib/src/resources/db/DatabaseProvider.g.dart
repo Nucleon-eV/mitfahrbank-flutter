@@ -79,56 +79,62 @@ class User extends DataClass implements Insertable<User> {
           .mapFromDatabaseResponse(data['${effectivePrefix}car_photo']),
     );
   }
-  factory User.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer = const ValueSerializer.defaults()}) {
-    return User(
-      id: serializer.fromJson<int>(json['id']),
-      own: serializer.fromJson<bool>(json['own']),
-      token: serializer.fromJson<String>(json['token']),
-      firstName: serializer.fromJson<String>(json['firstName']),
-      lastName: serializer.fromJson<String>(json['lastName']),
-      email: serializer.fromJson<String>(json['email']),
-      firstInstall: serializer.fromJson<bool>(json['firstInstall']),
-      usesPushNotifications:
-          serializer.fromJson<bool>(json['usesPushNotifications']),
-      usesEmailNotifications:
-          serializer.fromJson<bool>(json['usesEmailNotifications']),
-      createdAt: serializer.fromJson<int>(json['createdAt']),
-      updatedAt: serializer.fromJson<int>(json['updatedAt']),
-      admin: serializer.fromJson<bool>(json['admin']),
-      verified: serializer.fromJson<bool>(json['verified']),
-      avatar: serializer.fromJson<String>(json['avatar']),
-      distanceToStartInMeters:
-          serializer.fromJson<int>(json['distanceToStartInMeters']),
-      carPhoto: serializer.fromJson<String>(json['carPhoto']),
-    );
-  }
   @override
-  Map<String, dynamic> toJson(
-      {ValueSerializer serializer = const ValueSerializer.defaults()}) {
-    return {
-      'id': serializer.toJson<int>(id),
-      'own': serializer.toJson<bool>(own),
-      'token': serializer.toJson<String>(token),
-      'firstName': serializer.toJson<String>(firstName),
-      'lastName': serializer.toJson<String>(lastName),
-      'email': serializer.toJson<String>(email),
-      'firstInstall': serializer.toJson<bool>(firstInstall),
-      'usesPushNotifications': serializer.toJson<bool>(usesPushNotifications),
-      'usesEmailNotifications': serializer.toJson<bool>(usesEmailNotifications),
-      'createdAt': serializer.toJson<int>(createdAt),
-      'updatedAt': serializer.toJson<int>(updatedAt),
-      'admin': serializer.toJson<bool>(admin),
-      'verified': serializer.toJson<bool>(verified),
-      'avatar': serializer.toJson<String>(avatar),
-      'distanceToStartInMeters':
-          serializer.toJson<int>(distanceToStartInMeters),
-      'carPhoto': serializer.toJson<String>(carPhoto),
-    };
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
+    if (!nullToAbsent || own != null) {
+      map['own'] = Variable<bool>(own);
+    }
+    if (!nullToAbsent || token != null) {
+      map['token'] = Variable<String>(token);
+    }
+    if (!nullToAbsent || firstName != null) {
+      map['first_name'] = Variable<String>(firstName);
+    }
+    if (!nullToAbsent || lastName != null) {
+      map['last_name'] = Variable<String>(lastName);
+    }
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
+    }
+    if (!nullToAbsent || firstInstall != null) {
+      map['first_install'] = Variable<bool>(firstInstall);
+    }
+    if (!nullToAbsent || usesPushNotifications != null) {
+      map['uses_push_notifications'] = Variable<bool>(usesPushNotifications);
+    }
+    if (!nullToAbsent || usesEmailNotifications != null) {
+      map['uses_email_notifications'] = Variable<bool>(usesEmailNotifications);
+    }
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<int>(createdAt);
+    }
+    if (!nullToAbsent || updatedAt != null) {
+      map['updated_at'] = Variable<int>(updatedAt);
+    }
+    if (!nullToAbsent || admin != null) {
+      map['admin'] = Variable<bool>(admin);
+    }
+    if (!nullToAbsent || verified != null) {
+      map['verified'] = Variable<bool>(verified);
+    }
+    if (!nullToAbsent || avatar != null) {
+      map['avatar'] = Variable<String>(avatar);
+    }
+    if (!nullToAbsent || distanceToStartInMeters != null) {
+      map['distance_to_start_in_meters'] =
+          Variable<int>(distanceToStartInMeters);
+    }
+    if (!nullToAbsent || carPhoto != null) {
+      map['car_photo'] = Variable<String>(carPhoto);
+    }
+    return map;
   }
 
-  @override
-  UsersCompanion createCompanion(bool nullToAbsent) {
+  UsersCompanion toCompanion(bool nullToAbsent) {
     return UsersCompanion(
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       own: own == null && nullToAbsent ? const Value.absent() : Value(own),
@@ -163,7 +169,7 @@ class User extends DataClass implements Insertable<User> {
           ? const Value.absent()
           : Value(verified),
       avatar:
-          avatar == null && nullToAbsent ? const Value.absent() : Value(avatar),
+      avatar == null && nullToAbsent ? const Value.absent() : Value(avatar),
       distanceToStartInMeters: distanceToStartInMeters == null && nullToAbsent
           ? const Value.absent()
           : Value(distanceToStartInMeters),
@@ -173,15 +179,64 @@ class User extends DataClass implements Insertable<User> {
     );
   }
 
-  User copyWith(
-          {int id,
-          bool own,
-          String token,
-          String firstName,
-          String lastName,
-          String email,
-          bool firstInstall,
-          bool usesPushNotifications,
+  factory User.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return User(
+      id: serializer.fromJson<int>(json['id']),
+      own: serializer.fromJson<bool>(json['own']),
+      token: serializer.fromJson<String>(json['token']),
+      firstName: serializer.fromJson<String>(json['firstName']),
+      lastName: serializer.fromJson<String>(json['lastName']),
+      email: serializer.fromJson<String>(json['email']),
+      firstInstall: serializer.fromJson<bool>(json['firstInstall']),
+      usesPushNotifications:
+      serializer.fromJson<bool>(json['usesPushNotifications']),
+      usesEmailNotifications:
+      serializer.fromJson<bool>(json['usesEmailNotifications']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      admin: serializer.fromJson<bool>(json['admin']),
+      verified: serializer.fromJson<bool>(json['verified']),
+      avatar: serializer.fromJson<String>(json['avatar']),
+      distanceToStartInMeters:
+      serializer.fromJson<int>(json['distanceToStartInMeters']),
+      carPhoto: serializer.fromJson<String>(json['carPhoto']),
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'own': serializer.toJson<bool>(own),
+      'token': serializer.toJson<String>(token),
+      'firstName': serializer.toJson<String>(firstName),
+      'lastName': serializer.toJson<String>(lastName),
+      'email': serializer.toJson<String>(email),
+      'firstInstall': serializer.toJson<bool>(firstInstall),
+      'usesPushNotifications': serializer.toJson<bool>(usesPushNotifications),
+      'usesEmailNotifications': serializer.toJson<bool>(usesEmailNotifications),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'admin': serializer.toJson<bool>(admin),
+      'verified': serializer.toJson<bool>(verified),
+      'avatar': serializer.toJson<String>(avatar),
+      'distanceToStartInMeters':
+      serializer.toJson<int>(distanceToStartInMeters),
+      'carPhoto': serializer.toJson<String>(carPhoto),
+    };
+  }
+
+  User copyWith({int id,
+    bool own,
+    String token,
+    String firstName,
+    String lastName,
+    String email,
+    bool firstInstall,
+    bool usesPushNotifications,
           bool usesEmailNotifications,
           int createdAt,
           int updatedAt,
@@ -268,18 +323,19 @@ class User extends DataClass implements Insertable<User> {
                                                                   .hashCode,
                                                               carPhoto
                                                                   .hashCode))))))))))))))));
+
   @override
-  bool operator ==(other) =>
+  bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is User &&
-          other.id == this.id &&
-          other.own == this.own &&
-          other.token == this.token &&
-          other.firstName == this.firstName &&
-          other.lastName == this.lastName &&
-          other.email == this.email &&
-          other.firstInstall == this.firstInstall &&
-          other.usesPushNotifications == this.usesPushNotifications &&
+          (other is User &&
+              other.id == this.id &&
+              other.own == this.own &&
+              other.token == this.token &&
+              other.firstName == this.firstName &&
+              other.lastName == this.lastName &&
+              other.email == this.email &&
+              other.firstInstall == this.firstInstall &&
+              other.usesPushNotifications == this.usesPushNotifications &&
           other.usesEmailNotifications == this.usesEmailNotifications &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt &&
@@ -355,15 +411,56 @@ class UsersCompanion extends UpdateCompanion<User> {
         updatedAt = Value(updatedAt),
         admin = Value(admin),
         verified = Value(verified);
-  UsersCompanion copyWith(
-      {Value<int> id,
-      Value<bool> own,
-      Value<String> token,
-      Value<String> firstName,
-      Value<String> lastName,
-      Value<String> email,
-      Value<bool> firstInstall,
-      Value<bool> usesPushNotifications,
+
+  static Insertable<User> custom({
+    Expression<int> id,
+    Expression<bool> own,
+    Expression<String> token,
+    Expression<String> firstName,
+    Expression<String> lastName,
+    Expression<String> email,
+    Expression<bool> firstInstall,
+    Expression<bool> usesPushNotifications,
+    Expression<bool> usesEmailNotifications,
+    Expression<int> createdAt,
+    Expression<int> updatedAt,
+    Expression<bool> admin,
+    Expression<bool> verified,
+    Expression<String> avatar,
+    Expression<int> distanceToStartInMeters,
+    Expression<String> carPhoto,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (own != null) 'own': own,
+      if (token != null) 'token': token,
+      if (firstName != null) 'first_name': firstName,
+      if (lastName != null) 'last_name': lastName,
+      if (email != null) 'email': email,
+      if (firstInstall != null) 'first_install': firstInstall,
+      if (usesPushNotifications != null)
+        'uses_push_notifications': usesPushNotifications,
+      if (usesEmailNotifications != null)
+        'uses_email_notifications': usesEmailNotifications,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (admin != null) 'admin': admin,
+      if (verified != null) 'verified': verified,
+      if (avatar != null) 'avatar': avatar,
+      if (distanceToStartInMeters != null)
+        'distance_to_start_in_meters': distanceToStartInMeters,
+      if (carPhoto != null) 'car_photo': carPhoto,
+    });
+  }
+
+  UsersCompanion copyWith({Value<int> id,
+    Value<bool> own,
+    Value<String> token,
+    Value<String> firstName,
+    Value<String> lastName,
+    Value<String> email,
+    Value<bool> firstInstall,
+    Value<bool> usesPushNotifications,
       Value<bool> usesEmailNotifications,
       Value<int> createdAt,
       Value<int> updatedAt,
@@ -390,9 +487,83 @@ class UsersCompanion extends UpdateCompanion<User> {
       verified: verified ?? this.verified,
       avatar: avatar ?? this.avatar,
       distanceToStartInMeters:
-          distanceToStartInMeters ?? this.distanceToStartInMeters,
+      distanceToStartInMeters ?? this.distanceToStartInMeters,
       carPhoto: carPhoto ?? this.carPhoto,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (own.present) {
+      map['own'] = Variable<bool>(own.value);
+    }
+    if (token.present) {
+      map['token'] = Variable<String>(token.value);
+    }
+    if (firstName.present) {
+      map['first_name'] = Variable<String>(firstName.value);
+    }
+    if (lastName.present) {
+      map['last_name'] = Variable<String>(lastName.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (firstInstall.present) {
+      map['first_install'] = Variable<bool>(firstInstall.value);
+    }
+    if (usesPushNotifications.present) {
+      map['uses_push_notifications'] =
+          Variable<bool>(usesPushNotifications.value);
+    }
+    if (usesEmailNotifications.present) {
+      map['uses_email_notifications'] =
+          Variable<bool>(usesEmailNotifications.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (admin.present) {
+      map['admin'] = Variable<bool>(admin.value);
+    }
+    if (verified.present) {
+      map['verified'] = Variable<bool>(verified.value);
+    }
+    if (avatar.present) {
+      map['avatar'] = Variable<String>(avatar.value);
+    }
+    if (distanceToStartInMeters.present) {
+      map['distance_to_start_in_meters'] =
+          Variable<int>(distanceToStartInMeters.value);
+    }
+    if (carPhoto.present) {
+      map['car_photo'] = Variable<String>(carPhoto.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UsersCompanion(')
+      ..write('id: $id, ')..write('own: $own, ')..write(
+          'token: $token, ')..write('firstName: $firstName, ')..write(
+          'lastName: $lastName, ')..write('email: $email, ')..write(
+          'firstInstall: $firstInstall, ')..write(
+          'usesPushNotifications: $usesPushNotifications, ')..write(
+          'usesEmailNotifications: $usesEmailNotifications, ')..write(
+          'createdAt: $createdAt, ')..write('updatedAt: $updatedAt, ')..write(
+          'admin: $admin, ')..write('verified: $verified, ')..write(
+          'avatar: $avatar, ')..write(
+          'distanceToStartInMeters: $distanceToStartInMeters, ')..write(
+          'carPhoto: $carPhoto')..write(')'))
+        .toString();
   }
 }
 
@@ -625,111 +796,107 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   String get $tableName => _alias ?? 'users';
   @override
   final String actualTableName = 'users';
+
   @override
-  VerificationContext validateIntegrity(UsersCompanion d,
+  VerificationContext validateIntegrity(Insertable<User> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
-    if (d.id.present) {
-      context.handle(_idMeta, id.isAcceptableValue(d.id.value, _idMeta));
-    } else if (id.isRequired && isInserting) {
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+    } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (d.own.present) {
-      context.handle(_ownMeta, own.isAcceptableValue(d.own.value, _ownMeta));
-    } else if (own.isRequired && isInserting) {
+    if (data.containsKey('own')) {
+      context.handle(
+          _ownMeta, own.isAcceptableOrUnknown(data['own'], _ownMeta));
+    } else if (isInserting) {
       context.missing(_ownMeta);
     }
-    if (d.token.present) {
+    if (data.containsKey('token')) {
       context.handle(
-          _tokenMeta, token.isAcceptableValue(d.token.value, _tokenMeta));
-    } else if (token.isRequired && isInserting) {
+          _tokenMeta, token.isAcceptableOrUnknown(data['token'], _tokenMeta));
+    } else if (isInserting) {
       context.missing(_tokenMeta);
     }
-    if (d.firstName.present) {
+    if (data.containsKey('first_name')) {
       context.handle(_firstNameMeta,
-          firstName.isAcceptableValue(d.firstName.value, _firstNameMeta));
-    } else if (firstName.isRequired && isInserting) {
+          firstName.isAcceptableOrUnknown(data['first_name'], _firstNameMeta));
+    } else if (isInserting) {
       context.missing(_firstNameMeta);
     }
-    if (d.lastName.present) {
+    if (data.containsKey('last_name')) {
       context.handle(_lastNameMeta,
-          lastName.isAcceptableValue(d.lastName.value, _lastNameMeta));
-    } else if (lastName.isRequired && isInserting) {
-      context.missing(_lastNameMeta);
+          lastName.isAcceptableOrUnknown(data['last_name'], _lastNameMeta));
     }
-    if (d.email.present) {
+    if (data.containsKey('email')) {
       context.handle(
-          _emailMeta, email.isAcceptableValue(d.email.value, _emailMeta));
-    } else if (email.isRequired && isInserting) {
+          _emailMeta, email.isAcceptableOrUnknown(data['email'], _emailMeta));
+    } else if (isInserting) {
       context.missing(_emailMeta);
     }
-    if (d.firstInstall.present) {
+    if (data.containsKey('first_install')) {
       context.handle(
           _firstInstallMeta,
-          firstInstall.isAcceptableValue(
-              d.firstInstall.value, _firstInstallMeta));
-    } else if (firstInstall.isRequired && isInserting) {
+          firstInstall.isAcceptableOrUnknown(
+              data['first_install'], _firstInstallMeta));
+    } else if (isInserting) {
       context.missing(_firstInstallMeta);
     }
-    if (d.usesPushNotifications.present) {
+    if (data.containsKey('uses_push_notifications')) {
       context.handle(
           _usesPushNotificationsMeta,
-          usesPushNotifications.isAcceptableValue(
-              d.usesPushNotifications.value, _usesPushNotificationsMeta));
-    } else if (usesPushNotifications.isRequired && isInserting) {
+          usesPushNotifications.isAcceptableOrUnknown(
+              data['uses_push_notifications'], _usesPushNotificationsMeta));
+    } else if (isInserting) {
       context.missing(_usesPushNotificationsMeta);
     }
-    if (d.usesEmailNotifications.present) {
+    if (data.containsKey('uses_email_notifications')) {
       context.handle(
           _usesEmailNotificationsMeta,
-          usesEmailNotifications.isAcceptableValue(
-              d.usesEmailNotifications.value, _usesEmailNotificationsMeta));
-    } else if (usesEmailNotifications.isRequired && isInserting) {
+          usesEmailNotifications.isAcceptableOrUnknown(
+              data['uses_email_notifications'], _usesEmailNotificationsMeta));
+    } else if (isInserting) {
       context.missing(_usesEmailNotificationsMeta);
     }
-    if (d.createdAt.present) {
+    if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
-          createdAt.isAcceptableValue(d.createdAt.value, _createdAtMeta));
-    } else if (createdAt.isRequired && isInserting) {
+          createdAt.isAcceptableOrUnknown(data['created_at'], _createdAtMeta));
+    } else if (isInserting) {
       context.missing(_createdAtMeta);
     }
-    if (d.updatedAt.present) {
+    if (data.containsKey('updated_at')) {
       context.handle(_updatedAtMeta,
-          updatedAt.isAcceptableValue(d.updatedAt.value, _updatedAtMeta));
-    } else if (updatedAt.isRequired && isInserting) {
+          updatedAt.isAcceptableOrUnknown(data['updated_at'], _updatedAtMeta));
+    } else if (isInserting) {
       context.missing(_updatedAtMeta);
     }
-    if (d.admin.present) {
+    if (data.containsKey('admin')) {
       context.handle(
-          _adminMeta, admin.isAcceptableValue(d.admin.value, _adminMeta));
-    } else if (admin.isRequired && isInserting) {
+          _adminMeta, admin.isAcceptableOrUnknown(data['admin'], _adminMeta));
+    } else if (isInserting) {
       context.missing(_adminMeta);
     }
-    if (d.verified.present) {
+    if (data.containsKey('verified')) {
       context.handle(_verifiedMeta,
-          verified.isAcceptableValue(d.verified.value, _verifiedMeta));
-    } else if (verified.isRequired && isInserting) {
+          verified.isAcceptableOrUnknown(data['verified'], _verifiedMeta));
+    } else if (isInserting) {
       context.missing(_verifiedMeta);
     }
-    if (d.avatar.present) {
-      context.handle(
-          _avatarMeta, avatar.isAcceptableValue(d.avatar.value, _avatarMeta));
-    } else if (avatar.isRequired && isInserting) {
-      context.missing(_avatarMeta);
+    if (data.containsKey('avatar')) {
+      context.handle(_avatarMeta,
+          avatar.isAcceptableOrUnknown(data['avatar'], _avatarMeta));
     }
-    if (d.distanceToStartInMeters.present) {
+    if (data.containsKey('distance_to_start_in_meters')) {
       context.handle(
           _distanceToStartInMetersMeta,
-          distanceToStartInMeters.isAcceptableValue(
-              d.distanceToStartInMeters.value, _distanceToStartInMetersMeta));
-    } else if (distanceToStartInMeters.isRequired && isInserting) {
-      context.missing(_distanceToStartInMetersMeta);
+          distanceToStartInMeters.isAcceptableOrUnknown(
+              data['distance_to_start_in_meters'],
+              _distanceToStartInMetersMeta));
     }
-    if (d.carPhoto.present) {
+    if (data.containsKey('car_photo')) {
       context.handle(_carPhotoMeta,
-          carPhoto.isAcceptableValue(d.carPhoto.value, _carPhotoMeta));
-    } else if (carPhoto.isRequired && isInserting) {
-      context.missing(_carPhotoMeta);
+          carPhoto.isAcceptableOrUnknown(data['car_photo'], _carPhotoMeta));
     }
     return context;
   }
@@ -743,63 +910,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }
 
   @override
-  Map<String, Variable> entityToSql(UsersCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      map['id'] = Variable<int, IntType>(d.id.value);
-    }
-    if (d.own.present) {
-      map['own'] = Variable<bool, BoolType>(d.own.value);
-    }
-    if (d.token.present) {
-      map['token'] = Variable<String, StringType>(d.token.value);
-    }
-    if (d.firstName.present) {
-      map['first_name'] = Variable<String, StringType>(d.firstName.value);
-    }
-    if (d.lastName.present) {
-      map['last_name'] = Variable<String, StringType>(d.lastName.value);
-    }
-    if (d.email.present) {
-      map['email'] = Variable<String, StringType>(d.email.value);
-    }
-    if (d.firstInstall.present) {
-      map['first_install'] = Variable<bool, BoolType>(d.firstInstall.value);
-    }
-    if (d.usesPushNotifications.present) {
-      map['uses_push_notifications'] =
-          Variable<bool, BoolType>(d.usesPushNotifications.value);
-    }
-    if (d.usesEmailNotifications.present) {
-      map['uses_email_notifications'] =
-          Variable<bool, BoolType>(d.usesEmailNotifications.value);
-    }
-    if (d.createdAt.present) {
-      map['created_at'] = Variable<int, IntType>(d.createdAt.value);
-    }
-    if (d.updatedAt.present) {
-      map['updated_at'] = Variable<int, IntType>(d.updatedAt.value);
-    }
-    if (d.admin.present) {
-      map['admin'] = Variable<bool, BoolType>(d.admin.value);
-    }
-    if (d.verified.present) {
-      map['verified'] = Variable<bool, BoolType>(d.verified.value);
-    }
-    if (d.avatar.present) {
-      map['avatar'] = Variable<String, StringType>(d.avatar.value);
-    }
-    if (d.distanceToStartInMeters.present) {
-      map['distance_to_start_in_meters'] =
-          Variable<int, IntType>(d.distanceToStartInMeters.value);
-    }
-    if (d.carPhoto.present) {
-      map['car_photo'] = Variable<String, StringType>(d.carPhoto.value);
-    }
-    return map;
-  }
-
-  @override
   $UsersTable createAlias(String alias) {
     return $UsersTable(_db, alias);
   }
@@ -808,7 +918,12 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $UsersTable _users;
+
   $UsersTable get users => _users ??= $UsersTable(this);
+
   @override
-  List<TableInfo> get allTables => [users];
+  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+
+  @override
+  List<DatabaseSchemaEntity> get allSchemaEntities => [users];
 }

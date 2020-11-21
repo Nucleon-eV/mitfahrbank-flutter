@@ -21,7 +21,7 @@ void main() {
     });
 
     test('initial state is AuthenticationUninitialized', () {
-      expect(authenticationBloc.initialState, AuthenticationUninitialized());
+      expect(authenticationBloc.state, AuthenticationUninitialized());
     });
 
     blocTest(

@@ -24,7 +24,7 @@ void main() {
     });
 
     test('initial state is JourneysLoading', () {
-      expect(journeysBloc.initialState, JourneysLoading());
+      expect(journeysBloc.state, JourneysLoading());
     });
 
     blocTest(

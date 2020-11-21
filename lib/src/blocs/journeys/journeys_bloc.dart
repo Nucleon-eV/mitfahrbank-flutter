@@ -8,10 +8,8 @@ import 'journeys_state.dart';
 class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
   final MitfahrbankRepository mitfahrbankRepository;
 
-  JourneysBloc({@required this.mitfahrbankRepository});
-
-  @override
-  JourneysState get initialState => JourneysLoading();
+  JourneysBloc({@required this.mitfahrbankRepository})
+      : super(JourneysLoading());
 
   @override
   Stream<JourneysState> mapEventToState(JourneysEvent event) async* {

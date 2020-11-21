@@ -33,7 +33,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('${state.error}'),
               backgroundColor: Colors.red,
@@ -42,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
-        bloc: _loginBloc,
+        cubit: _loginBloc,
         builder: (
           BuildContext context,
           LoginState state,

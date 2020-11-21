@@ -11,10 +11,8 @@ import 'start_journey_state.dart';
 class StartJourneyBloc extends Bloc<StartJourneyEvent, StartJourneyState> {
   final MitfahrbankRepository mitfahrbankRepository;
 
-  StartJourneyBloc({this.mitfahrbankRepository});
-
-  @override
-  StartJourneyState get initialState => MitfahrbaenkeLoading();
+  StartJourneyBloc({this.mitfahrbankRepository})
+      : super(MitfahrbaenkeLoading());
 
   @override
   Stream<StartJourneyState> mapEventToState(event) async* {

@@ -201,15 +201,15 @@ class Menu extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: Icon(OMIcons.thumbUp),
-              title: Text('Mitfahren'),
+              label: 'Mitfahren',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.directions_car),
-              title: Text('Mitnehmen'),
+              label: 'Mitnehmen',
             ),
             BottomNavigationBarItem(
               icon: Icon(OMIcons.settings),
-              title: Text('Einstellungen'),
+              label: 'Einstellungen',
             )
           ],
         ),

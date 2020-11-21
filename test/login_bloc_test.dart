@@ -27,7 +27,7 @@ void main() {
     });
 
     test('initial state is LoginInitial', () {
-      expect(loginBloc.initialState, LoginInitial());
+      expect(loginBloc.state, LoginInitial());
     });
 
     blocTest(
