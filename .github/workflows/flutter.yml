@@ -71,7 +71,7 @@ jobs:
       - name: Pod Repo update
         run: pod repo update
       - name: Install dependencies
-        run: flutter packages get
+        run: rm -rf ~/.pub-cache ; flutter packages get
       - name: setup-docker
         uses: docker-practice/actions-setup-docker@0.0.1
       - name: Android Emulator Runner
