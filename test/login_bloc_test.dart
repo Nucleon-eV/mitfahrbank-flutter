@@ -35,7 +35,7 @@ void main() {
       build: () => loginBloc,
       // ignore: missing_required_param
       act: (bloc) => bloc.add(LoginButtonPressed()),
-      expect: [LoginInitial(), LoginLoading(), LoginInitial()],
+      expect: [LoginLoading(), LoginInitial()],
     );
 
     blocTest(
@@ -49,7 +49,6 @@ void main() {
         return bloc.add(LoginButtonPressed());
       },
       expect: [
-        LoginInitial(),
         LoginLoading(),
         LoginFailure(error: 'Exception: Failed to login')
       ],

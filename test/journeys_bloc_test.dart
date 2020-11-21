@@ -36,7 +36,6 @@ void main() {
         return bloc.add(LoadJourneysAsDriver());
       },
       expect: [
-        JourneysLoading(),
         JourneysAsDriverLoaded(journeys: <Journey>[])
       ],
     );
@@ -49,7 +48,7 @@ void main() {
             .thenThrow(Exception("Unable to get Journeys"));
         return bloc.add(LoadJourneysAsDriver());
       },
-      expect: [JourneysLoading(), JourneysNotLoaded()],
+      expect: [JourneysNotLoaded()],
     );
 
     blocTest(
@@ -59,7 +58,7 @@ void main() {
         return bloc.add(LoadJourneysAsPassenger());
       },
       // ignore: missing_required_param
-      expect: [JourneysLoading(), JourneysAsPassengerLoaded()],
+      expect: [JourneysAsPassengerLoaded()],
     );
 
     blocTest(
@@ -71,7 +70,7 @@ void main() {
         return bloc.add(LoadJourneysAsPassenger());
       },
       // ignore: missing_required_param
-      expect: [JourneysLoading(), JourneysNotLoaded()],
+      expect: [JourneysNotLoaded()],
     );
 
     blocTest(
@@ -83,7 +82,7 @@ void main() {
         return bloc.add(LoadJourneysAsPassenger());
       },
       // ignore: missing_required_param
-      expect: [JourneysLoading(), JourneysNotLoaded()],
+      expect: [JourneysNotLoaded()],
     );
 
     blocTest(
@@ -93,7 +92,7 @@ void main() {
         return bloc.add(LoadJourney(0));
       },
       // ignore: missing_required_param
-      expect: [JourneysLoading(), JourneyLoaded()],
+      expect: [JourneyLoaded()],
     );
 
     blocTest(
@@ -105,7 +104,7 @@ void main() {
         return bloc.add(LoadJourney(0));
       },
       // ignore: missing_required_param
-      expect: [JourneysLoading(), JourneysNotLoaded()],
+      expect: [JourneysNotLoaded()],
     );
   });
 }

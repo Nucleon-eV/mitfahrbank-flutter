@@ -32,7 +32,7 @@ void main() {
 
         return bloc.add(AppStarted());
       },
-      expect: [AuthenticationUninitialized(), AuthenticationAuthenticated()],
+      expect: [AuthenticationAuthenticated()],
     );
 
     blocTest(
@@ -43,7 +43,7 @@ void main() {
 
         return bloc.add(AppStarted());
       },
-      expect: [AuthenticationUninitialized(), AuthenticationUnauthenticated()],
+      expect: [AuthenticationUnauthenticated()],
     );
 
     blocTest(
@@ -54,7 +54,6 @@ void main() {
         return bloc.add(LoggedIn());
       },
       expect: [
-        AuthenticationUninitialized(),
         AuthenticationLoading(),
         AuthenticationAuthenticated()
       ],
@@ -68,7 +67,6 @@ void main() {
         return bloc.add(LoggedOut());
       },
       expect: [
-        AuthenticationUninitialized(),
         AuthenticationLoading(),
         AuthenticationUnauthenticated()
       ],
